@@ -28,6 +28,18 @@
 - `apps/web`에 Next.js + TypeScript 기본 앱과 API health 확인 화면 생성 완료
 - Next.js 의존성 설치와 build/typecheck는 사용자 요청에 따라 승인/네트워크가 필요한 단계라 미실행
 
+## 보류한 검증 항목
+
+아래 검증은 승인, 네트워크, 의존성 설치가 필요한 단계라 현재 작업 흐름에서는 보류했다.
+
+- API 의존성 설치: `apps/api`에서 `.venv\Scripts\python -m pip install -e ".[dev]"`
+- API 테스트: `apps/api`에서 `python -m pytest`
+- Web 의존성 설치: `apps/web`에서 `npm.cmd install`
+- Web 타입 검사: `apps/web`에서 `npm.cmd run typecheck`
+- Web 빌드: `apps/web`에서 `npm.cmd run build`
+
+우선순위가 꼬이지 않도록, 다음 개발 작업은 예정대로 로컬 PostgreSQL Docker Compose 추가를 진행하고 위 검증은 네트워크/승인 조건이 맞을 때 별도 검증 작업으로 처리한다.
+
 ## 다음 명령
 
 다음 개발 작업은 아래 순서로 시작한다.

@@ -61,6 +61,18 @@
 - Next.js runtime/build/typecheck 검증은 사용자 요청에 따라 의존성 설치가 필요한 단계라 이번 작업에서는 실행하지 않음
   - 후속 조치: `apps/web`에서 `npm.cmd install`, `npm.cmd run typecheck`, `npm.cmd run build` 실행
 
+## 보류한 검증 항목
+
+승인, 네트워크, 의존성 설치가 필요한 작업은 현재 순서를 꼬이게 만들 수 있어 보류한다. 아래 항목은 실행 가능한 환경이 준비되면 별도 검증 작업으로 처리한다.
+
+| 영역 | 보류 항목 | 이유 | 실행 조건 |
+|---|---|---|---|
+| API | `.venv\Scripts\python -m pip install -e ".[dev]"` | package index DNS resolution 실패 | 네트워크/DNS 정상화 |
+| API | `python -m pytest` | FastAPI/pytest 의존성 미설치 | API 의존성 설치 완료 |
+| Web | `npm.cmd install` | 의존성 설치 필요 | 사용자가 승인하거나 네트워크 사용 가능 |
+| Web | `npm.cmd run typecheck` | Node 의존성 미설치 | Web 의존성 설치 완료 |
+| Web | `npm.cmd run build` | Node 의존성 미설치 | Web 의존성 설치 완료 |
+
 ## 현재 리스크
 
 - 아직 DB 모델과 공고 API가 없다.
