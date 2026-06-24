@@ -41,34 +41,43 @@
 - `docs/engineering-principles.md`로 유지보수 가능한 개발 원칙 정리
 - `docs/requirements.md`와 `docs/verification-criteria.md`로 요구사항 기반 검증 기준 수립
 - `TEAM_SYNC.md`로 병렬 작업자가 공통으로 읽고 갱신해야 할 프로젝트 기준 파일 정리
+- `apps/web`에 Next.js + TypeScript 기본 앱 추가
+- 프론트엔드 API 주소를 `NEXT_PUBLIC_API_BASE_URL` 환경 변수 기준으로 분리
+- Cloudflare Pages 정적 배포를 고려해 `next.config.mjs`에 `output: "export"` 설정
+- API health 상태를 확인하는 기본 화면 추가
 
 ## 2026-06-25 검증
 
 - `apps/api` Python 파일 8개 AST 문법 검사 통과
+- `apps/web/package.json` JSON 파싱 통과
+- `apps/web/next.config.mjs` Node 문법 검사 통과
+- `NEXT_PUBLIC_API_BASE_URL` 환경 변수 사용 위치 확인
+- `npm.cmd --version` 확인: `11.13.0`
 - `git diff --check` 통과
 - FastAPI/pytest runtime 테스트는 현재 환경에서 의존성 설치가 DNS 문제로 실패해 실행하지 못함
   - 실패 명령: `apps/api`에서 `.venv\Scripts\python -m pip install -e ".[dev]"`
   - 실패 원인: package index DNS resolution 실패
   - 후속 조치: 네트워크가 가능한 환경에서 `python -m pip install -e ".[dev]"` 후 `python -m pytest` 실행
+- Next.js runtime/build/typecheck 검증은 사용자 요청에 따라 의존성 설치가 필요한 단계라 이번 작업에서는 실행하지 않음
+  - 후속 조치: `apps/web`에서 `npm.cmd install`, `npm.cmd run typecheck`, `npm.cmd run build` 실행
 
 ## 현재 리스크
 
-- 아직 프론트엔드 앱 코드가 없다.
 - 아직 DB 모델과 공고 API가 없다.
 - 실제 수집 가능한 공공 API/RSS 소스가 확정되지 않았다.
 - 무료 API 호스팅은 sleep으로 첫 응답이 느릴 수 있다.
 - Supabase/Render/GitHub Actions 무료 한도 내에서 크롤러 실행 시간을 관리해야 한다.
 - 민간 대형 채용 플랫폼은 무단 크롤링하지 않는 전제로 대체 소스 확보가 필요하다.
 - 현재 로컬 환경에서 Python 의존성 설치가 네트워크 DNS 문제로 막혀 FastAPI runtime 테스트는 미실행 상태다.
+- Next.js 의존성 설치와 build/typecheck는 아직 실행하지 않았다.
 
 ## 다음 작업
 
-1. Next.js 프론트엔드 기본 앱 추가
-2. 로컬 개발용 PostgreSQL Docker Compose 추가
-3. 샘플 공고 seed 데이터 추가
-4. 공고 목록/상세 API 구현
-5. 공고 목록/상세 UI 구현
-6. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. 로컬 개발용 PostgreSQL Docker Compose 추가
+2. 샘플 공고 seed 데이터 추가
+3. 공고 목록/상세 API 구현
+4. 공고 목록/상세 UI 구현
+5. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 
 ## 진행 기록 규칙
 

@@ -1,6 +1,6 @@
 # Web App
 
-Next.js + TypeScript 프론트엔드가 들어갈 위치다.
+Next.js + TypeScript 프론트엔드다.
 
 ## 역할
 
@@ -18,4 +18,65 @@ Next.js + TypeScript 프론트엔드가 들어갈 위치다.
 
 ## 다음 작업
 
-다음 프론트엔드 작업에서 Next.js 기본 앱을 생성하고 실행 방법을 이 문서에 갱신한다.
+다음 프론트엔드 작업은 공고 목록/상세 UI가 아니라 API contract 확정 후 공고 탐색 화면을 붙이는 것이다.
+
+## 구조
+
+```text
+src/
+  app/
+    layout.tsx
+    page.tsx
+    globals.css
+  components/
+    api-health-panel.tsx
+  lib/
+    config.ts
+```
+
+## 환경 변수
+
+API 주소는 `NEXT_PUBLIC_API_BASE_URL`로 설정한다.
+
+기본값:
+
+```text
+http://localhost:8000
+```
+
+루트 `.env.example`에도 같은 변수가 있다.
+
+## 로컬 실행
+
+PowerShell에서 `npm` 스크립트 실행이 막히면 `npm.cmd`를 사용한다.
+
+```powershell
+cd apps/web
+npm.cmd install
+npm.cmd run dev
+```
+
+확인:
+
+```text
+http://localhost:3000
+```
+
+타입 검사:
+
+```powershell
+cd apps/web
+npm.cmd run typecheck
+```
+
+정적 빌드:
+
+```powershell
+cd apps/web
+npm.cmd run build
+```
+
+## 검증 기준
+
+- `SR-002`: API base URL은 `NEXT_PUBLIC_API_BASE_URL` 환경 변수로 설정된다.
+- `NFR-002`: `apps/web`은 API와 독립적으로 실행/배포된다.

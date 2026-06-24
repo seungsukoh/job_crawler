@@ -67,5 +67,6 @@
 | 항목 | 상태 | 확인 방법 |
 |---|---|---|
 | SR-001 | 구현, runtime 검증 대기 | `apps/api/tests/test_health.py`, `GET /health` |
+| SR-002 | 구현, 정적 검증 통과, runtime 검증 대기 | `apps/web/src/lib/config.ts`, `NEXT_PUBLIC_API_BASE_URL` |
 | NFR-002 | 반영 | `apps/web`, `apps/api`, `crawler`, `infra` 분리 |
 | NFR-006 | 반영 중 | `PROJECT_STATUS.md`, `SESSION_HANDOFF.md` |

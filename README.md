@@ -28,17 +28,16 @@ docs/         planning, policy, operation documents
 
 ## 개발 순서
 
-1. Next.js 기본 앱 추가
-2. 로컬 PostgreSQL Docker Compose 추가
-3. 샘플 공고 seed 데이터 추가
-4. 공고 목록/상세 API 구현
-5. 공고 목록/상세 UI 구현
-6. Source Registry 모델 추가
-7. GitHub Actions 수동 크롤러 실행 추가
+1. 로컬 PostgreSQL Docker Compose 추가
+2. 샘플 공고 seed 데이터 추가
+3. 공고 목록/상세 API 구현
+4. 공고 목록/상세 UI 구현
+5. Source Registry 모델 추가
+6. GitHub Actions 수동 크롤러 실행 추가
 
 ## 로컬 실행
 
-FastAPI 기본 앱은 `apps/api`에 생성했다. 다른 앱이 추가되면 아래 위치의 README에 실행 방법을 갱신한다.
+FastAPI 기본 앱은 `apps/api`에, Next.js 기본 앱은 `apps/web`에 생성했다. 추가 실행 방법은 각 README에서 관리한다.
 
 - `apps/api/README.md`
 - `apps/web/README.md`

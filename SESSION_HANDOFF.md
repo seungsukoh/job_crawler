@@ -25,16 +25,17 @@
 - PM 운영 체크리스트, 유지보수 원칙, 요구사항, 검증 기준 문서 생성 완료
 - `TEAM_SYNC.md`로 병렬 작업용 공유 기준 파일 정리 완료
 - `apps/api` AST 문법 검사는 통과했으나, FastAPI/pytest 의존성 설치가 DNS 문제로 실패해 runtime 테스트는 미실행
-- 아직 Next.js 실제 앱 코드는 생성하지 않음
+- `apps/web`에 Next.js + TypeScript 기본 앱과 API health 확인 화면 생성 완료
+- Next.js 의존성 설치와 build/typecheck는 사용자 요청에 따라 승인/네트워크가 필요한 단계라 미실행
 
 ## 다음 명령
 
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: Next.js 프론트엔드 기본 앱 추가
-범위: apps/web 안에 Next.js + TypeScript 기본 앱, API base URL 설정, health 확인 UI 또는 기본 화면, 로컬 실행 문서
-제외: 공고 목록 UI, DB 모델, 실제 크롤러, 배포 자동화, 인증
+이번 작업: 로컬 개발용 PostgreSQL Docker Compose 추가
+범위: infra 안에 Docker Compose, 로컬 DB 환경 변수 정리, 실행 문서
+제외: DB 모델, migration, 실제 크롤러, 배포 자동화, 인증
 ```
 
 ## 반드시 유지할 결정

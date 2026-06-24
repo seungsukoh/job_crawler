@@ -41,12 +41,11 @@
 
 ## 다음 작업
 
-1. Next.js 프론트엔드 기본 앱 추가
-2. 로컬 개발용 PostgreSQL Docker Compose 추가
-3. 샘플 공고 seed 데이터 추가
-4. 공고 목록/상세 API 구현
-5. 공고 목록/상세 UI 구현
-6. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. 로컬 개발용 PostgreSQL Docker Compose 추가
+2. 샘플 공고 seed 데이터 추가
+3. 공고 목록/상세 API 구현
+4. 공고 목록/상세 UI 구현
+5. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 
 ## 작업 원칙
 
