@@ -20,6 +20,8 @@
 - `ROADMAP.md` 작성
 - `docs/crawling-policy.md` 작성
 - 사용자 검색 시점 실시간 크롤링을 금지하고, 주기 수집 + DB 검색 구조를 공식 원칙으로 반영
+- 토큰 절약을 위해 `CONTEXT_BRIEF.md`와 `docs/context-management.md` 작성
+- 토큰 리밋/세션 종료 후 재개를 위해 `SESSION_HANDOFF.md` 작성
 
 ## 현재 리스크
 
@@ -44,3 +46,4 @@
 
 새 기능, 정책 변경, 배포 변경, 크롤링 소스 추가, 리스크 발견, 테스트 결과는 이 파일에 날짜별로 기록한다.
 
+토큰 리밋, 오류, 세션 재시작 가능성이 있으면 `PROJECT_STATUS.md`와 `SESSION_HANDOFF.md`를 갱신하고 커밋한 뒤 GitHub에 push한다.
