@@ -34,24 +34,41 @@
 - `apps/web`, `apps/api`, `crawler`, `infra` 모노리포 기본 구조 생성
 - 루트 `README.md`, `.gitignore`, `.env.example` 추가
 - 각 영역별 README로 역할, 운영 방향, 다음 작업 범위 기록
+- `apps/api`에 FastAPI 기본 앱과 `GET /health` 엔드포인트 추가
+- API 구조를 `main`, `api/router`, 개별 route, `core/config`, `tests`로 분리해 병렬 작업이 가능하도록 구성
+- `docs/development-lanes.md`로 API/Web/Crawler/Infra/PM 작업 경계 기록
+- `docs/pm-operating-checklist.md`로 PM 책임, P0 수용 기준, 베타 검증 질문 정리
+- `docs/engineering-principles.md`로 유지보수 가능한 개발 원칙 정리
+- `docs/requirements.md`와 `docs/verification-criteria.md`로 요구사항 기반 검증 기준 수립
+- `TEAM_SYNC.md`로 병렬 작업자가 공통으로 읽고 갱신해야 할 프로젝트 기준 파일 정리
+
+## 2026-06-25 검증
+
+- `apps/api` Python 파일 8개 AST 문법 검사 통과
+- `git diff --check` 통과
+- FastAPI/pytest runtime 테스트는 현재 환경에서 의존성 설치가 DNS 문제로 실패해 실행하지 못함
+  - 실패 명령: `apps/api`에서 `.venv\Scripts\python -m pip install -e ".[dev]"`
+  - 실패 원인: package index DNS resolution 실패
+  - 후속 조치: 네트워크가 가능한 환경에서 `python -m pip install -e ".[dev]"` 후 `python -m pytest` 실행
 
 ## 현재 리스크
 
-- 아직 실제 앱 코드가 없다.
+- 아직 프론트엔드 앱 코드가 없다.
+- 아직 DB 모델과 공고 API가 없다.
 - 실제 수집 가능한 공공 API/RSS 소스가 확정되지 않았다.
 - 무료 API 호스팅은 sleep으로 첫 응답이 느릴 수 있다.
 - Supabase/Render/GitHub Actions 무료 한도 내에서 크롤러 실행 시간을 관리해야 한다.
 - 민간 대형 채용 플랫폼은 무단 크롤링하지 않는 전제로 대체 소스 확보가 필요하다.
+- 현재 로컬 환경에서 Python 의존성 설치가 네트워크 DNS 문제로 막혀 FastAPI runtime 테스트는 미실행 상태다.
 
 ## 다음 작업
 
-1. FastAPI 백엔드 기본 앱 추가
-2. Next.js 프론트엔드 기본 앱 추가
-3. 로컬 개발용 PostgreSQL Docker Compose 추가
-4. 샘플 공고 seed 데이터 추가
-5. 공고 목록/상세 API 구현
-6. 공고 목록/상세 UI 구현
-7. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. Next.js 프론트엔드 기본 앱 추가
+2. 로컬 개발용 PostgreSQL Docker Compose 추가
+3. 샘플 공고 seed 데이터 추가
+4. 공고 목록/상세 API 구현
+5. 공고 목록/상세 UI 구현
+6. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 
 ## 진행 기록 규칙
 

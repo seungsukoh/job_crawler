@@ -28,18 +28,17 @@ docs/         planning, policy, operation documents
 
 ## 개발 순서
 
-1. FastAPI `/health` 앱 추가
-2. Next.js 기본 앱 추가
-3. 로컬 PostgreSQL Docker Compose 추가
-4. 샘플 공고 seed 데이터 추가
-5. 공고 목록/상세 API 구현
-6. 공고 목록/상세 UI 구현
-7. Source Registry 모델 추가
-8. GitHub Actions 수동 크롤러 실행 추가
+1. Next.js 기본 앱 추가
+2. 로컬 PostgreSQL Docker Compose 추가
+3. 샘플 공고 seed 데이터 추가
+4. 공고 목록/상세 API 구현
+5. 공고 목록/상세 UI 구현
+6. Source Registry 모델 추가
+7. GitHub Actions 수동 크롤러 실행 추가
 
 ## 로컬 실행
 
-아직 실제 앱 코드는 생성하지 않았다. 각 앱이 추가되면 아래 위치의 README에 실행 방법을 갱신한다.
+FastAPI 기본 앱은 `apps/api`에 생성했다. 다른 앱이 추가되면 아래 위치의 README에 실행 방법을 갱신한다.
 
 - `apps/api/README.md`
 - `apps/web/README.md`
@@ -63,10 +62,16 @@ docs/         planning, policy, operation documents
 
 ## 주요 문서
 
+- `TEAM_SYNC.md`: 병렬 작업자가 공유해야 할 기준 파일과 동기화 규칙
 - `CONTEXT_BRIEF.md`: 다음 세션을 위한 짧은 프로젝트 요약
 - `PROJECT_STATUS.md`: 최신 진행 상황과 다음 작업
 - `SESSION_HANDOFF.md`: 중단 후 재개 기준
 - `docs/mvp-implementation-strategy.md`: MVP 구현 전략
+- `docs/development-lanes.md`: 병렬 개발 작업 경계
+- `docs/engineering-principles.md`: 유지보수 가능한 개발 원칙
+- `docs/pm-operating-checklist.md`: PM 운영 체크리스트
+- `docs/requirements.md`: 요구사항 기준
+- `docs/verification-criteria.md`: 요구사항 기반 검증 기준
 - `docs/crawling-policy.md`: 안전 수집 정책
 - `FREE_DEPLOYMENT_PLAN.md`: 무료 운영 배포 전략
 - `ROADMAP.md`: 6주 MVP 로드맵

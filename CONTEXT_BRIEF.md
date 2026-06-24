@@ -24,10 +24,16 @@
 
 ## 핵심 문서
 
+- `TEAM_SYNC.md`: 병렬 작업자가 공유해야 할 기준 파일과 동기화 규칙
 - `PROJECT_STATUS.md`: 최신 진행 상황과 다음 작업
 - `SESSION_HANDOFF.md`: 토큰 리밋/세션 종료 후 재개 지점
 - `ROADMAP.md`: 6주 MVP 로드맵과 우선순위
 - `docs/mvp-implementation-strategy.md`: 전문가 그룹 검토 기반 MVP 구현 전략
+- `docs/development-lanes.md`: 병렬 개발 작업 경계
+- `docs/engineering-principles.md`: 유지보수 가능한 개발 원칙
+- `docs/pm-operating-checklist.md`: PM 운영 체크리스트
+- `docs/requirements.md`: 요구사항 기준
+- `docs/verification-criteria.md`: 요구사항 기반 검증 기준
 - `docs/crawling-policy.md`: 안전 수집 정책
 - `FREE_DEPLOYMENT_PLAN.md`: 무료 운영 배포 전략
 - `PROJECT_PLAN.md`: 초기 제품/기술 기획 전체본
@@ -35,13 +41,12 @@
 
 ## 다음 작업
 
-1. FastAPI 백엔드 기본 앱 추가
-2. Next.js 프론트엔드 기본 앱 추가
-3. 로컬 개발용 PostgreSQL Docker Compose 추가
-4. 샘플 공고 seed 데이터 추가
-5. 공고 목록/상세 API 구현
-6. 공고 목록/상세 UI 구현
-7. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. Next.js 프론트엔드 기본 앱 추가
+2. 로컬 개발용 PostgreSQL Docker Compose 추가
+3. 샘플 공고 seed 데이터 추가
+4. 공고 목록/상세 API 구현
+5. 공고 목록/상세 UI 구현
+6. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 
 ## 작업 원칙
 

@@ -26,4 +26,56 @@ FastAPI 백엔드가 들어갈 위치다.
 
 ## 다음 작업
 
-다음 백엔드 작업에서 FastAPI 기본 앱과 `/health` 엔드포인트를 추가하고 실행 방법을 이 문서에 갱신한다.
+다음 백엔드 작업은 DB 없이 공고 목록/상세 API의 요청/응답 형태를 먼저 잡는 것이다.
+
+## 구조
+
+```text
+app/
+  main.py          FastAPI app factory
+  api/
+    router.py      API router composition
+    health.py      health endpoint
+  core/
+    config.py      environment-based settings
+tests/
+  test_health.py
+```
+
+새 API는 `app/api/<resource>.py`에 라우터를 만들고 `app/api/router.py`에 연결한다. 이렇게 하면 `jobs`, `sources`, `crawl-runs`를 병렬로 추가하기 쉽다.
+
+## 로컬 실행
+
+PowerShell 기준:
+
+```powershell
+cd apps/api
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+확인:
+
+```powershell
+Invoke-RestMethod http://localhost:8000/health
+```
+
+예상 응답:
+
+```json
+{
+  "status": "ok",
+  "service": "job-crawler-api",
+  "version": "0.1.0",
+  "environment": "local"
+}
+```
+
+테스트:
+
+```powershell
+cd apps/api
+python -m pytest
+```

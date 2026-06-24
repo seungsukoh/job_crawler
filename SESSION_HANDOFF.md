@@ -4,11 +4,12 @@
 
 ## 다음 세션 시작 절차
 
-1. `CONTEXT_BRIEF.md`를 읽는다.
-2. `PROJECT_STATUS.md`를 읽는다.
-3. 이 파일의 `현재 중단 지점`과 `다음 명령`을 확인한다.
-4. 작업과 직접 관련된 문서만 추가로 읽는다.
-5. 작업을 이어간다.
+1. `TEAM_SYNC.md`를 읽는다.
+2. `CONTEXT_BRIEF.md`를 읽는다.
+3. `PROJECT_STATUS.md`를 읽는다.
+4. 이 파일의 `현재 중단 지점`과 `다음 명령`을 확인한다.
+5. 작업과 직접 관련된 문서만 추가로 읽는다.
+6. 작업을 이어간다.
 
 ## 현재 중단 지점
 
@@ -19,16 +20,21 @@
 - `docs/mvp-implementation-strategy.md`에 MVP 구현 전략 기록 완료
 - `apps/web`, `apps/api`, `crawler`, `infra` 기본 구조와 README 문서 생성 완료
 - 루트 `README.md`, `.gitignore`, `.env.example` 생성 완료
-- 아직 FastAPI/Next.js 실제 앱 코드는 생성하지 않음
+- `apps/api`에 FastAPI 기본 앱과 `GET /health` 엔드포인트 생성 완료
+- API 구조를 route/config/test 단위로 분리해 이후 병렬 작업 가능하게 구성
+- PM 운영 체크리스트, 유지보수 원칙, 요구사항, 검증 기준 문서 생성 완료
+- `TEAM_SYNC.md`로 병렬 작업용 공유 기준 파일 정리 완료
+- `apps/api` AST 문법 검사는 통과했으나, FastAPI/pytest 의존성 설치가 DNS 문제로 실패해 runtime 테스트는 미실행
+- 아직 Next.js 실제 앱 코드는 생성하지 않음
 
 ## 다음 명령
 
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: FastAPI 백엔드 기본 앱 추가
-범위: apps/api 안에 FastAPI 앱, /health 엔드포인트, Python 의존성 파일, 로컬 실행 문서
-제외: DB 모델, 실제 크롤러, 배포 자동화, 인증
+이번 작업: Next.js 프론트엔드 기본 앱 추가
+범위: apps/web 안에 Next.js + TypeScript 기본 앱, API base URL 설정, health 확인 UI 또는 기본 화면, 로컬 실행 문서
+제외: 공고 목록 UI, DB 모델, 실제 크롤러, 배포 자동화, 인증
 ```
 
 ## 반드시 유지할 결정
@@ -39,6 +45,7 @@
 - 수집 소스는 공식 API/RSS/직접 등록/허용된 공개 페이지부터 시작한다.
 - 대형 민간 채용 플랫폼 무단 크롤링은 MVP 범위에서 제외한다.
 - 진행 내용은 `PROJECT_STATUS.md`에 남긴다.
+- 병렬 작업자는 `TEAM_SYNC.md`를 먼저 확인하고 요구사항/검증 기준과 작업 레인을 맞춘다.
 - 세션이 길어지거나 문제가 생기면 `PROJECT_STATUS.md`와 `SESSION_HANDOFF.md`를 갱신하고, 커밋 후 GitHub에 push한 뒤 작업을 끊는다.
 
 ## 다음 세션에서 읽을 필요가 없는 문서
