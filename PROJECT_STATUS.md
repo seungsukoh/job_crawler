@@ -31,6 +31,9 @@
 - 전문가 그룹 결론을 `docs/mvp-implementation-strategy.md`에 기록
 - 무료 운영에서 시작하되 유료 인프라로 쉽게 이전할 수 있도록 웹/API/크롤러/DB 경계를 분리하는 원칙을 명시
 - 사용자 검색 시점 외부 크롤링 금지, Source Registry 기반 수집, 하루 1~2회부터 시작하는 수집 주기 원칙을 재확인
+- `apps/web`, `apps/api`, `crawler`, `infra` 모노리포 기본 구조 생성
+- 루트 `README.md`, `.gitignore`, `.env.example` 추가
+- 각 영역별 README로 역할, 운영 방향, 다음 작업 범위 기록
 
 ## 현재 리스크
 
@@ -42,14 +45,13 @@
 
 ## 다음 작업
 
-1. 모노리포 기본 구조 생성
-2. FastAPI 백엔드 기본 앱 추가
-3. Next.js 프론트엔드 기본 앱 추가
-4. 로컬 개발용 PostgreSQL Docker Compose 추가
-5. 샘플 공고 seed 데이터 추가
-6. 공고 목록/상세 API 구현
-7. 공고 목록/상세 UI 구현
-8. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. FastAPI 백엔드 기본 앱 추가
+2. Next.js 프론트엔드 기본 앱 추가
+3. 로컬 개발용 PostgreSQL Docker Compose 추가
+4. 샘플 공고 seed 데이터 추가
+5. 공고 목록/상세 API 구현
+6. 공고 목록/상세 UI 구현
+7. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 
 ## 진행 기록 규칙
 

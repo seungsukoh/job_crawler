@@ -17,16 +17,18 @@
 - 토큰 절약 작업 방식과 세션 인수인계 문서화 완료
 - 전문가 그룹 검토를 통해 `apps/web`, `apps/api`, `crawler`, `infra`, `docs` 기반 모노리포 구조를 권장 구조로 확정
 - `docs/mvp-implementation-strategy.md`에 MVP 구현 전략 기록 완료
-- 아직 실제 앱 코드는 생성하지 않음
+- `apps/web`, `apps/api`, `crawler`, `infra` 기본 구조와 README 문서 생성 완료
+- 루트 `README.md`, `.gitignore`, `.env.example` 생성 완료
+- 아직 FastAPI/Next.js 실제 앱 코드는 생성하지 않음
 
 ## 다음 명령
 
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: 모노리포 기본 구조 생성
-범위: apps/web, apps/api, crawler, infra, docs 구조, README, .gitignore, .env.example, 기본 실행 문서
-제외: DB 모델, 실제 크롤러, 배포 자동화
+이번 작업: FastAPI 백엔드 기본 앱 추가
+범위: apps/api 안에 FastAPI 앱, /health 엔드포인트, Python 의존성 파일, 로컬 실행 문서
+제외: DB 모델, 실제 크롤러, 배포 자동화, 인증
 ```
 
 ## 반드시 유지할 결정

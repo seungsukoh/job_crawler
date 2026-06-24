@@ -35,14 +35,13 @@
 
 ## 다음 작업
 
-1. 모노리포 기본 구조 생성
-2. FastAPI 백엔드 기본 앱 추가
-3. Next.js 프론트엔드 기본 앱 추가
-4. 로컬 개발용 PostgreSQL Docker Compose 추가
-5. 샘플 공고 seed 데이터 추가
-6. 공고 목록/상세 API 구현
-7. 공고 목록/상세 UI 구현
-8. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. FastAPI 백엔드 기본 앱 추가
+2. Next.js 프론트엔드 기본 앱 추가
+3. 로컬 개발용 PostgreSQL Docker Compose 추가
+4. 샘플 공고 seed 데이터 추가
+5. 공고 목록/상세 API 구현
+6. 공고 목록/상세 UI 구현
+7. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 
 ## 작업 원칙
 
