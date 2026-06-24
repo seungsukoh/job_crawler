@@ -27,6 +27,9 @@
 - `apps/api` AST 문법 검사는 통과했으나, FastAPI/pytest 의존성 설치가 DNS 문제로 실패해 runtime 테스트는 미실행
 - `apps/web`에 Next.js + TypeScript 기본 앱과 API health 확인 화면 생성 완료
 - Next.js 의존성 설치와 build/typecheck는 사용자 요청에 따라 승인/네트워크가 필요한 단계라 미실행
+- `infra/docker-compose.yml`로 로컬 PostgreSQL Compose 설정 생성 완료
+- `.env.example`에 로컬 DB용 `POSTGRES_*` 값을 추가하고 `DATABASE_URL`과 기본값을 맞춤
+- `infra/README.md`에 로컬 DB 실행/중지/초기화 절차 기록 완료
 
 ## 보류한 검증 항목
 
@@ -37,17 +40,18 @@
 - Web 의존성 설치: `apps/web`에서 `npm.cmd install`
 - Web 타입 검사: `apps/web`에서 `npm.cmd run typecheck`
 - Web 빌드: `apps/web`에서 `npm.cmd run build`
+- Infra Compose 설정 확인: 루트에서 `docker compose -f infra/docker-compose.yml config`
 
-우선순위가 꼬이지 않도록, 다음 개발 작업은 예정대로 로컬 PostgreSQL Docker Compose 추가를 진행하고 위 검증은 네트워크/승인 조건이 맞을 때 별도 검증 작업으로 처리한다.
+우선순위가 꼬이지 않도록, 다음 개발 작업은 예정대로 진행하고 위 검증은 네트워크/승인/로컬 도구 조건이 맞을 때 별도 검증 작업으로 처리한다.
 
 ## 다음 명령
 
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: 로컬 개발용 PostgreSQL Docker Compose 추가
-범위: infra 안에 Docker Compose, 로컬 DB 환경 변수 정리, 실행 문서
-제외: DB 모델, migration, 실제 크롤러, 배포 자동화, 인증
+이번 작업: 샘플 공고 seed 데이터 추가
+범위: P0 공고 목록/상세 검증에 필요한 샘플 공고 데이터, 필수 필드, 로컬 seed 실행 방식, API/Web 데이터 계약
+제외: 실제 외부 수집, Source Registry 구현, 관심 공고 저장, 배포 자동화, 인증
 ```
 
 ## 반드시 유지할 결정

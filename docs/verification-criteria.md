@@ -68,5 +68,6 @@
 |---|---|---|
 | SR-001 | 구현, runtime 검증 대기 | `apps/api/tests/test_health.py`, `GET /health` |
 | SR-002 | 구현, 정적 검증 통과, runtime 검증 대기 | `apps/web/src/lib/config.ts`, `NEXT_PUBLIC_API_BASE_URL` |
+| SR-004 | 로컬 PostgreSQL 실행 구성 추가, DB schema 검증 대기 | `infra/docker-compose.yml`, `infra/README.md` |
 | NFR-002 | 반영 | `apps/web`, `apps/api`, `crawler`, `infra` 분리 |
 | NFR-006 | 반영 중 | `PROJECT_STATUS.md`, `SESSION_HANDOFF.md` |

@@ -45,6 +45,9 @@
 - 프론트엔드 API 주소를 `NEXT_PUBLIC_API_BASE_URL` 환경 변수 기준으로 분리
 - Cloudflare Pages 정적 배포를 고려해 `next.config.mjs`에 `output: "export"` 설정
 - API health 상태를 확인하는 기본 화면 추가
+- `infra/docker-compose.yml`로 로컬 개발용 PostgreSQL Compose 설정 추가
+- `.env.example`에 Compose와 API가 공유할 `POSTGRES_*` 로컬 DB 환경 변수 추가
+- `infra/README.md`에 로컬 DB 실행, 상태 확인, 로그 확인, 중지, volume 초기화 방법 기록
 
 ## 2026-06-25 검증
 
@@ -52,8 +55,10 @@
 - `apps/web/package.json` JSON 파싱 통과
 - `apps/web/next.config.mjs` Node 문법 검사 통과
 - `NEXT_PUBLIC_API_BASE_URL` 환경 변수 사용 위치 확인
+- 로컬 PostgreSQL Compose 설정이 `.env.example`의 기본 DB 값과 일치하는지 검토
 - `npm.cmd --version` 확인: `11.13.0`
 - `git diff --check` 통과
+- `docker compose -f infra/docker-compose.yml config`는 현재 환경에 Docker CLI가 없어 실행하지 못함
 - FastAPI/pytest runtime 테스트는 현재 환경에서 의존성 설치가 DNS 문제로 실패해 실행하지 못함
   - 실패 명령: `apps/api`에서 `.venv\Scripts\python -m pip install -e ".[dev]"`
   - 실패 원인: package index DNS resolution 실패
@@ -72,6 +77,7 @@
 | Web | `npm.cmd install` | 의존성 설치 필요 | 사용자가 승인하거나 네트워크 사용 가능 |
 | Web | `npm.cmd run typecheck` | Node 의존성 미설치 | Web 의존성 설치 완료 |
 | Web | `npm.cmd run build` | Node 의존성 미설치 | Web 의존성 설치 완료 |
+| Infra | `docker compose -f infra/docker-compose.yml config` | Docker CLI 미설치 | Docker Desktop 또는 Docker CLI 설치 |
 
 ## 현재 리스크
 
@@ -85,11 +91,11 @@
 
 ## 다음 작업
 
-1. 로컬 개발용 PostgreSQL Docker Compose 추가
-2. 샘플 공고 seed 데이터 추가
-3. 공고 목록/상세 API 구현
-4. 공고 목록/상세 UI 구현
-5. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+1. 샘플 공고 seed 데이터 추가
+2. 공고 목록/상세 API 구현
+3. 공고 목록/상세 UI 구현
+4. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+5. GitHub Actions CI 또는 최소 검증 자동화 추가
 
 ## 진행 기록 규칙
 
