@@ -12,6 +12,7 @@
 ## 현재 결정
 
 - 무료 운영 우선
+- 구조: `apps/web`, `apps/api`, `crawler`, `infra`, `docs` 기반 모노리포
 - Frontend: Next.js + TypeScript, Cloudflare Pages 후보
 - Backend: Python FastAPI, Render Free 후보
 - DB: PostgreSQL, Supabase Free 후보
@@ -26,6 +27,7 @@
 - `PROJECT_STATUS.md`: 최신 진행 상황과 다음 작업
 - `SESSION_HANDOFF.md`: 토큰 리밋/세션 종료 후 재개 지점
 - `ROADMAP.md`: 6주 MVP 로드맵과 우선순위
+- `docs/mvp-implementation-strategy.md`: 전문가 그룹 검토 기반 MVP 구현 전략
 - `docs/crawling-policy.md`: 안전 수집 정책
 - `FREE_DEPLOYMENT_PLAN.md`: 무료 운영 배포 전략
 - `PROJECT_PLAN.md`: 초기 제품/기술 기획 전체본
@@ -33,7 +35,7 @@
 
 ## 다음 작업
 
-1. 레포 기본 구조 생성
+1. 모노리포 기본 구조 생성
 2. FastAPI 백엔드 기본 앱 추가
 3. Next.js 프론트엔드 기본 앱 추가
 4. 로컬 개발용 PostgreSQL Docker Compose 추가

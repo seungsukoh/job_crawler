@@ -15,6 +15,8 @@
 - 저장소 연결 완료
 - 기획/로드맵/무료 배포/안전 수집 정책 문서화 완료
 - 토큰 절약 작업 방식과 세션 인수인계 문서화 완료
+- 전문가 그룹 검토를 통해 `apps/web`, `apps/api`, `crawler`, `infra`, `docs` 기반 모노리포 구조를 권장 구조로 확정
+- `docs/mvp-implementation-strategy.md`에 MVP 구현 전략 기록 완료
 - 아직 실제 앱 코드는 생성하지 않음
 
 ## 다음 명령
@@ -22,8 +24,8 @@
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: 레포 기본 구조 생성
-범위: backend/frontend 디렉터리, README, .gitignore, .env.example, 기본 실행 문서
+이번 작업: 모노리포 기본 구조 생성
+범위: apps/web, apps/api, crawler, infra, docs 구조, README, .gitignore, .env.example, 기본 실행 문서
 제외: DB 모델, 실제 크롤러, 배포 자동화
 ```
 

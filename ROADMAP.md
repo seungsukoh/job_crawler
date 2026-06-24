@@ -152,7 +152,7 @@ Definition of Done:
 
 ## 첫 작업 목록
 
-1. 레포 기본 구조 생성
+1. 모노리포 기본 구조 생성
 2. FastAPI 앱 생성
 3. Next.js 앱 생성
 4. Docker Compose로 PostgreSQL 연결
