@@ -79,6 +79,18 @@
 | Web | `npm.cmd run build` | Node 의존성 미설치 | Web 의존성 설치 완료 |
 | Infra | `docker compose -f infra/docker-compose.yml config` | Docker CLI 미설치 | Docker Desktop 또는 Docker CLI 설치 |
 
+## GitHub 반영 상태
+
+최근 작업은 `main` 브랜치에 push 완료했다.
+
+| 커밋 | 내용 |
+|---|---|
+| `f0d4cdf` | 모노리포 기본 구조 추가 |
+| `08c8f6c` | FastAPI 기본 앱과 공유 계획 문서 추가 |
+| `0ba9c8f` | Next.js Web 기본 앱 추가 |
+| `1c84e59` | 보류한 검증 항목 문서화 |
+| `025ea5c` | 로컬 PostgreSQL Docker Compose 설정 추가 |
+
 ## 현재 리스크
 
 - 아직 DB 모델과 공고 API가 없다.
