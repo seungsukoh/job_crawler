@@ -17,6 +17,7 @@
 - Backend: Python FastAPI, Render Free 후보
 - DB: PostgreSQL, Supabase Free 후보
 - Local DB: `infra/docker-compose.yml`로 PostgreSQL 실행
+- Sample API: `GET /jobs`, `GET /jobs/{id}`는 `apps/api/app/sample_data/sample_jobs.json` 기반 synthetic 데이터로 동작
 - Crawler: GitHub Actions 수동 실행에서 시작, 이후 하루 1~4회 예약 실행
 - 검색: 사용자 요청 시 외부 사이트를 긁지 않고 내부 DB만 조회
 - 수집: 스케줄러 또는 관리자 수동 실행으로만 수행
@@ -42,11 +43,11 @@
 
 ## 다음 작업
 
-1. 샘플 공고 seed 데이터 추가
-2. 공고 목록/상세 API 구현
-3. 공고 목록/상세 UI 구현
-4. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
-5. GitHub Actions CI 또는 최소 검증 자동화 추가
+1. 샘플 공고 seed를 PostgreSQL schema/migration/seed 실행 방식으로 연결
+2. 공고 목록/상세 UI 구현
+3. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+4. GitHub Actions CI 또는 최소 검증 자동화 추가
+5. 관심 공고 localStorage 저장 UI 구현
 
 ## 작업 원칙
 

@@ -48,10 +48,16 @@
 - `infra/docker-compose.yml`로 로컬 개발용 PostgreSQL Compose 설정 추가
 - `.env.example`에 Compose와 API가 공유할 `POSTGRES_*` 로컬 DB 환경 변수 추가
 - `infra/README.md`에 로컬 DB 실행, 상태 확인, 로그 확인, 중지, volume 초기화 방법 기록
+- `apps/api/app/sample_data/sample_jobs.json`에 synthetic 샘플 공고 10개 추가
+- `GET /jobs`, `GET /jobs/{id}`를 샘플 데이터 기반으로 구현
+- `GET /jobs`에 `keyword`, `deadline_from`, `deadline_to`, `include_closed` query parameter 추가
+- 샘플 공고 API 테스트 `apps/api/tests/test_jobs.py` 추가
 
 ## 2026-06-25 검증
 
-- `apps/api` Python 파일 8개 AST 문법 검사 통과
+- `apps/api` Python 파일 13개 AST 문법 검사 통과
+- `apps/api/app/sample_data/sample_jobs.json` JSON 파싱 통과
+- sample jobs service 로딩, keyword filter, detail lookup 확인 통과
 - `apps/web/package.json` JSON 파싱 통과
 - `apps/web/next.config.mjs` Node 문법 검사 통과
 - `NEXT_PUBLIC_API_BASE_URL` 환경 변수 사용 위치 확인
@@ -81,7 +87,7 @@
 
 ## GitHub 반영 상태
 
-최근 작업은 `main` 브랜치에 push 완료했다.
+아래 커밋까지 `main` 브랜치에 push 완료했다. 현재 샘플 jobs API 변경사항은 아직 커밋하지 않았다.
 
 | 커밋 | 내용 |
 |---|---|
@@ -93,7 +99,7 @@
 
 ## 현재 리스크
 
-- 아직 DB 모델과 공고 API가 없다.
+- 아직 DB 모델과 DB-backed 공고 API가 없다.
 - 실제 수집 가능한 공공 API/RSS 소스가 확정되지 않았다.
 - 무료 API 호스팅은 sleep으로 첫 응답이 느릴 수 있다.
 - Supabase/Render/GitHub Actions 무료 한도 내에서 크롤러 실행 시간을 관리해야 한다.
@@ -103,11 +109,11 @@
 
 ## 다음 작업
 
-1. 샘플 공고 seed 데이터 추가
-2. 공고 목록/상세 API 구현
-3. 공고 목록/상세 UI 구현
-4. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
-5. GitHub Actions CI 또는 최소 검증 자동화 추가
+1. 샘플 공고 seed를 PostgreSQL schema/migration/seed 실행 방식으로 연결
+2. 공고 목록/상세 UI 구현
+3. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+4. GitHub Actions CI 또는 최소 검증 자동화 추가
+5. 관심 공고 localStorage 저장 UI 구현
 
 ## 진행 기록 규칙
 
