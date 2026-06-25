@@ -3,7 +3,7 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException, Query
 
-from app.services.jobs import get_job, list_jobs
+from app.services.jobs import current_job_data_source, get_job, list_jobs
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
 
@@ -30,7 +30,7 @@ def read_jobs(
             "deadline_to": deadline_to.isoformat() if deadline_to else None,
             "include_closed": include_closed,
         },
-        "data_source": "sample",
+        "data_source": current_job_data_source(),
     }
 
 

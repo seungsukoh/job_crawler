@@ -34,6 +34,9 @@
 - `GET /jobs`, `GET /jobs/{id}`를 샘플 데이터 기반으로 구현 완료
 - `GET /jobs`는 `keyword`, `deadline_from`, `deadline_to`, `include_closed` query parameter를 지원
 - 샘플 jobs API 테스트 파일 `apps/api/tests/test_jobs.py` 추가 완료
+- `JOB_DATA_SOURCE=sample|database` 설정으로 공고 API 데이터 소스를 전환하는 구조 추가 완료
+- PostgreSQL `jobs` 테이블 SQL migration과 migration runner 추가 완료
+- 샘플 공고 DB seed runner `python -m app.db.seed --clear-sample` 추가 완료
 
 ## 보류한 검증 항목
 
@@ -41,6 +44,8 @@
 
 - API 의존성 설치: `apps/api`에서 `.venv\Scripts\python -m pip install -e ".[dev]"`
 - API 테스트: `apps/api`에서 `python -m pytest`
+- API DB migration: `apps/api`에서 `python -m app.db.migrate`
+- API DB seed: `apps/api`에서 `python -m app.db.seed --clear-sample`
 - Web 의존성 설치: `apps/web`에서 `npm.cmd install`
 - Web 타입 검사: `apps/web`에서 `npm.cmd run typecheck`
 - Web 빌드: `apps/web`에서 `npm.cmd run build`
@@ -53,8 +58,8 @@ API 의존성 설치는 승인 후에도 package index DNS resolution 실패로 
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: 샘플 공고 seed를 PostgreSQL schema/migration/seed 실행 방식으로 연결
-범위: jobs 테이블 초안, 샘플 데이터 적재 방식, 기존 GET /jobs 계약 유지, DB 연결 설정
+이번 작업: DB migration/seed/runtime API 검증
+범위: Docker PostgreSQL 실행, API 의존성 설치, migration/seed 실행, JOB_DATA_SOURCE=database로 GET /jobs 확인
 제외: 실제 외부 수집, Source Registry 구현, 관심 공고 저장, 배포 자동화, 인증
 ```
 

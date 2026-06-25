@@ -74,6 +74,7 @@
 | FR-004 | API 구현, runtime 검증 대기 | `GET /jobs?deadline_from=2026-06-26&deadline_to=2026-06-30` |
 | FR-005 | API 구현, runtime 검증 대기 | `GET /jobs/sample-job-004` |
 | FR-010 | API 구현, runtime 검증 대기 | `collected_at`, `verified_at` fields in sample response |
-| SR-004 | 로컬 PostgreSQL 실행 구성 추가, DB schema 검증 대기 | `infra/docker-compose.yml`, `infra/README.md` |
+| SR-004 | DB schema/migration 구현, runtime 검증 대기 | `infra/docker-compose.yml`, `apps/api/app/db/migrations/0001_create_jobs.sql` |
+| SR-005 | SQL migration runner 구현, runtime 검증 대기 | `python -m app.db.migrate` |
 | NFR-002 | 반영 | `apps/web`, `apps/api`, `crawler`, `infra` 분리 |
 | NFR-006 | 반영 중 | `PROJECT_STATUS.md`, `SESSION_HANDOFF.md` |

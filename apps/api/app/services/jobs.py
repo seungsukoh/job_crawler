@@ -6,6 +6,9 @@ from importlib import resources
 import json
 from typing import Any
 
+from app.core.config import settings
+from app.db.jobs import get_job_from_database, list_jobs_from_database
+
 
 JobRecord = dict[str, Any]
 
@@ -24,6 +27,17 @@ def list_jobs(
     deadline_to: date | None = None,
     include_closed: bool = False,
 ) -> list[JobRecord]:
+    if settings.job_data_source == "database":
+        return list_jobs_from_database(
+            keyword=keyword,
+            deadline_from=deadline_from,
+            deadline_to=deadline_to,
+            include_closed=include_closed,
+        )
+
+    if settings.job_data_source != "sample":
+        raise ValueError(f"Unsupported JOB_DATA_SOURCE: {settings.job_data_source}")
+
     jobs = list(load_sample_jobs())
 
     if not include_closed:
@@ -44,7 +58,17 @@ def list_jobs(
 
 
 def get_job(job_id: str) -> JobRecord | None:
+    if settings.job_data_source == "database":
+        return get_job_from_database(job_id)
+
+    if settings.job_data_source != "sample":
+        raise ValueError(f"Unsupported JOB_DATA_SOURCE: {settings.job_data_source}")
+
     return next((job for job in load_sample_jobs() if job["id"] == job_id), None)
+
+
+def current_job_data_source() -> str:
+    return settings.job_data_source
 
 
 def _matches_keyword(job: JobRecord, normalized_keyword: str) -> bool:

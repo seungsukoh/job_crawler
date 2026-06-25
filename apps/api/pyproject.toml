@@ -5,8 +5,13 @@ description = "FastAPI backend for the job_crawler project"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115.0,<1.0.0",
+    "psycopg[binary]>=3.2.0,<4.0.0",
     "uvicorn[standard]>=0.30.0,<1.0.0",
 ]
+
+[project.scripts]
+job-crawler-api-migrate = "app.db.migrate:main"
+job-crawler-api-seed = "app.db.seed:main"
 
 [project.optional-dependencies]
 dev = [
@@ -21,3 +26,10 @@ target-version = "py311"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+"app.db.migrations" = ["*.sql"]
+"app.sample_data" = ["*.json"]

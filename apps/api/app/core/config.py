@@ -12,6 +12,8 @@ class Settings:
     app_version: str
     environment: str
     allowed_origins: tuple[str, ...]
+    database_url: str
+    job_data_source: str
 
 
 def load_settings() -> Settings:
@@ -20,6 +22,11 @@ def load_settings() -> Settings:
         app_version=os.getenv("APP_VERSION", "0.1.0"),
         environment=os.getenv("APP_ENV", "local"),
         allowed_origins=_split_csv(os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")),
+        database_url=os.getenv(
+            "DATABASE_URL",
+            "postgresql+psycopg://job_crawler:job_crawler@localhost:5432/job_crawler",
+        ),
+        job_data_source=os.getenv("JOB_DATA_SOURCE", "sample"),
     )
 
 

@@ -21,12 +21,14 @@ FastAPI 백엔드가 들어갈 위치다.
 
 - Render Free 배포를 우선 고려한다.
 - PostgreSQL은 `DATABASE_URL` 환경 변수로 연결한다.
-- DB 변경은 Alembic migration으로 관리한다.
+- DB 변경은 `app/db/migrations`의 SQL migration 파일과 `python -m app.db.migrate`로 관리한다.
 - 수집 작업은 API 서버 내부 작업으로 넣지 않고 `crawler/`의 독립 CLI로 분리한다.
 
 ## 공고 샘플 API
 
-DB schema가 들어오기 전까지 `GET /jobs`와 `GET /jobs/{id}`는 `app/sample_data/sample_jobs.json`의 synthetic sample 데이터를 반환한다. 이 데이터는 UI/API 계약 검증용이며 실제 채용 사이트에서 수집한 데이터가 아니다.
+기본값에서는 `GET /jobs`와 `GET /jobs/{id}`가 `app/sample_data/sample_jobs.json`의 synthetic sample 데이터를 반환한다. 이 데이터는 UI/API 계약 검증용이며 실제 채용 사이트에서 수집한 데이터가 아니다.
+
+`JOB_DATA_SOURCE=database`로 설정하면 같은 API 계약을 PostgreSQL `jobs` 테이블에서 조회한다. 이 모드에서는 먼저 DB migration과 seed를 실행해야 한다.
 
 `GET /jobs` query parameters:
 
@@ -71,9 +73,35 @@ DB schema가 들어오기 전까지 `GET /jobs`와 `GET /jobs/{id}`는 `app/samp
 
 `GET /jobs/{id}`는 단일 공고 객체를 반환하고, 존재하지 않는 ID는 `404`를 반환한다. 샘플 데이터에는 공고 본문 전문, 이미지, 첨부파일을 포함하지 않는다.
 
+## DB migration과 seed
+
+로컬 PostgreSQL 실행 방법은 `infra/README.md`를 따른다.
+
+API 개발 의존성 설치 후 migration을 실행한다.
+
+```powershell
+cd apps/api
+python -m app.db.migrate
+```
+
+샘플 공고를 DB에 적재한다.
+
+```powershell
+python -m app.db.seed --clear-sample
+```
+
+DB-backed API를 확인하려면 API 실행 전에 환경 변수를 바꾼다.
+
+```powershell
+$env:JOB_DATA_SOURCE = "database"
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+`GET /jobs`와 `GET /jobs/{id}`의 응답 필드는 sample mode와 database mode에서 동일하게 유지한다.
+
 ## 다음 작업
 
-다음 백엔드 작업은 이 sample contract를 기준으로 PostgreSQL schema와 seed 실행 방식을 추가하는 것이다. API 응답 형태가 바뀌면 Web 작업자가 볼 수 있도록 이 README와 검증 기준을 함께 갱신한다.
+다음 백엔드 작업은 DB-backed jobs API를 runtime으로 검증하고, 필요하면 query 성능과 migration 방식을 보강하는 것이다. API 응답 형태가 바뀌면 Web 작업자가 볼 수 있도록 이 README와 검증 기준을 함께 갱신한다.
 
 ## 구조
 
@@ -84,6 +112,12 @@ app/
     router.py      API router composition
     health.py      health endpoint
     jobs.py        sample-backed jobs endpoints
+  db/
+    connection.py  PostgreSQL connection helper
+    jobs.py        DB-backed jobs queries
+    migrate.py     SQL migration runner
+    seed.py        sample data seed runner
+    migrations/    SQL migration files
   services/
     jobs.py        sample job loading and filtering
   sample_data/

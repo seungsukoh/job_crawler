@@ -52,12 +52,19 @@
 - `GET /jobs`, `GET /jobs/{id}`를 샘플 데이터 기반으로 구현
 - `GET /jobs`에 `keyword`, `deadline_from`, `deadline_to`, `include_closed` query parameter 추가
 - 샘플 공고 API 테스트 `apps/api/tests/test_jobs.py` 추가
+- `JOB_DATA_SOURCE=sample|database` 기준으로 공고 API 데이터 소스를 전환하는 설정 추가
+- PostgreSQL `jobs` 테이블 SQL migration `0001_create_jobs.sql` 추가
+- SQL migration runner `python -m app.db.migrate` 추가
+- 샘플 공고 DB seed runner `python -m app.db.seed --clear-sample` 추가
+- `JOB_DATA_SOURCE=database`에서 같은 `GET /jobs`, `GET /jobs/{id}` 계약을 PostgreSQL에서 조회하는 DB query 경로 추가
 
 ## 2026-06-25 검증
 
-- `apps/api` Python 파일 13개 AST 문법 검사 통과
+- `apps/api` Python 파일 19개 AST 문법 검사 통과
 - `apps/api/app/sample_data/sample_jobs.json` JSON 파싱 통과
 - sample jobs service 로딩, keyword filter, detail lookup 확인 통과
+- `DATABASE_URL`의 `postgresql+psycopg://` 값을 psycopg 접속용 `postgresql://`로 변환하는 정적 확인 통과
+- sample mode에서 `GET /jobs` service 경로가 psycopg 미설치 상태에서도 동작하는지 확인
 - `apps/web/package.json` JSON 파싱 통과
 - `apps/web/next.config.mjs` Node 문법 검사 통과
 - `NEXT_PUBLIC_API_BASE_URL` 환경 변수 사용 위치 확인
@@ -80,14 +87,16 @@
 |---|---|---|---|
 | API | `.venv\Scripts\python -m pip install -e ".[dev]"` | package index DNS resolution 실패 | 네트워크/DNS 정상화 |
 | API | `python -m pytest` | FastAPI/pytest 의존성 미설치 | API 의존성 설치 완료 |
+| API | `python -m app.db.migrate` | psycopg 의존성 및 Docker/PostgreSQL 실행 필요 | API 의존성 설치와 로컬 DB 실행 완료 |
+| API | `python -m app.db.seed --clear-sample` | psycopg 의존성 및 DB migration 필요 | migration 실행 완료 |
 | Web | `npm.cmd install` | 의존성 설치 필요 | 사용자가 승인하거나 네트워크 사용 가능 |
 | Web | `npm.cmd run typecheck` | Node 의존성 미설치 | Web 의존성 설치 완료 |
 | Web | `npm.cmd run build` | Node 의존성 미설치 | Web 의존성 설치 완료 |
 | Infra | `docker compose -f infra/docker-compose.yml config` | Docker CLI 미설치 | Docker Desktop 또는 Docker CLI 설치 |
 
-## GitHub 반영 상태
+## Git 반영 상태
 
-아래 커밋까지 `main` 브랜치에 push 완료했다. 현재 샘플 jobs API 변경사항은 아직 커밋하지 않았다.
+주요 작업은 기능 단위 커밋으로 관리한다. 원격 push 여부는 `git status`, `git log`, `git remote -v`로 확인한다.
 
 | 커밋 | 내용 |
 |---|---|
@@ -96,10 +105,11 @@
 | `0ba9c8f` | Next.js Web 기본 앱 추가 |
 | `1c84e59` | 보류한 검증 항목 문서화 |
 | `025ea5c` | 로컬 PostgreSQL Docker Compose 설정 추가 |
+| `da58dcd` | 샘플 공고 API 계약 추가 |
 
 ## 현재 리스크
 
-- 아직 DB 모델과 DB-backed 공고 API가 없다.
+- DB 모델과 DB-backed 공고 API 경로는 생겼지만 runtime 검증은 아직 못 했다.
 - 실제 수집 가능한 공공 API/RSS 소스가 확정되지 않았다.
 - 무료 API 호스팅은 sleep으로 첫 응답이 느릴 수 있다.
 - Supabase/Render/GitHub Actions 무료 한도 내에서 크롤러 실행 시간을 관리해야 한다.
@@ -109,7 +119,7 @@
 
 ## 다음 작업
 
-1. 샘플 공고 seed를 PostgreSQL schema/migration/seed 실행 방식으로 연결
+1. DB migration/seed/runtime API 검증
 2. 공고 목록/상세 UI 구현
 3. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 4. GitHub Actions CI 또는 최소 검증 자동화 추가
