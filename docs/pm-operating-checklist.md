@@ -20,6 +20,24 @@ PM 레인은 기능을 많이 만드는 역할이 아니라, 대학생에게 실
 
 MVP는 채용 플랫폼 전체가 아니라 공고 탐색/저장 도구다.
 
+## PM 진행사항
+
+### 2026-06-26 기준
+
+- MVP 범위는 `대학생용 신뢰 가능한 공고 탐색/저장 도구`로 유지한다.
+- 사용자 검색 시점의 외부 사이트 실시간 크롤링은 제외하고, 주기 수집 후 내부 DB를 검색하는 방식으로 확정했다.
+- 무료 운영 우선 구조를 확정했다: Cloudflare Pages, Render Free, Supabase Free, GitHub Actions.
+- 프론트엔드는 React + Vite + TypeScript로 전환했고 Cloudflare Pages 루트 빌드가 `dist/`를 생성하도록 정리했다.
+- Cloudflare Pages 배포 전용 설정은 `Build command: npm run build`, `Build output directory: dist`로 정리했다.
+- API 미배포 또는 API 연결 실패 상태에서도 화면 검증이 가능하도록 Web 내장 샘플 공고 fallback을 추가했다.
+- FastAPI는 `GET /health`, `GET /jobs`, `GET /jobs/{id}`를 제공하고, `sample`/`database` 데이터 소스 전환을 지원한다.
+- PostgreSQL `jobs` 테이블 migration, sample seed, DB-backed 검색 경로를 추가했다.
+- Render API 배포용 `render.yaml`과 Supabase/Render/Cloudflare/GitHub Actions 연결 절차 문서를 추가했다.
+- GitHub Actions workflow를 추가했다: `Bootstrap database`, `Collect jobs`, `API smoke test`.
+- Crawler는 사용자 검색과 분리된 독립 CLI로 준비했고, 초기 수집 대상은 Greenhouse/Lever 공개 채용 API allowlist로 제한했다.
+- 현재 외부 콘솔 작업이 남아 있다: Supabase DB 생성, GitHub `DATABASE_URL` secret 등록, `Bootstrap database` 실행, Render API 배포, Cloudflare `VITE_API_BASE_URL` 설정.
+- 현재 주요 리스크는 실제 DB/API runtime 검증 미완료, 첫 실제 수집 소스 미확정, 무료 티어 sleep/한도, Python 의존성 설치 환경의 DNS 문제다.
+
 ## P0 수용 기준
 
 ### 공고 목록
