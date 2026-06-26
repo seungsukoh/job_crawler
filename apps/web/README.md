@@ -50,7 +50,7 @@ http://localhost:8000
 
 ## Cloudflare Pages
 
-Cloudflare Pages 설정:
+권장 Cloudflare Pages 설정:
 
 ```text
 Framework preset: Vite
@@ -58,6 +58,17 @@ Root directory: apps/web
 Build command: npm run build
 Build output directory: dist
 Environment variable: VITE_API_BASE_URL
+Node version: 20
+```
+
+Cloudflare Pages가 저장소 루트에서 빌드하도록 설정되어 있다면 아래 설정도 동작한다.
+
+```text
+Root directory: /
+Build command: npm run build
+Build output directory: apps/web/dist
+Environment variable: VITE_API_BASE_URL
+Node version: 20
 ```
 
 ## 로컬 실행

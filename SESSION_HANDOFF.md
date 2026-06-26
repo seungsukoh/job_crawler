@@ -27,6 +27,7 @@
 - `apps/api` AST 문법 검사는 통과했으나, FastAPI/pytest 의존성 설치가 DNS 문제로 실패해 runtime 테스트는 미실행
 - `apps/web`은 React + Vite + TypeScript 앱으로 전환 완료
 - Cloudflare Pages 설정 기준은 root `apps/web`, build command `npm run build`, output `dist`, env `VITE_API_BASE_URL`
+- Cloudflare Pages가 저장소 루트에서 빌드할 경우 root build command `npm run build`, output `apps/web/dist`도 지원
 - `apps/web` API health 확인 화면 생성 완료
 - `apps/web`에 공고 목록/상세 탐색 UI와 관심 공고 localStorage 저장 UI 추가 완료
 - Web `npm.cmd run typecheck`, `npm.cmd run build` 통과
