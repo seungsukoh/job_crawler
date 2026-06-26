@@ -9,7 +9,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "npm --workspace job-crawler-web run build",
+    "build": "npm --workspace job-crawler-web run build && node scripts/copy-web-dist.mjs",
     "dev": "npm --workspace job-crawler-web run dev",
     "typecheck": "npm --workspace job-crawler-web run typecheck",
     "web:build": "npm --prefix apps/web run build",
