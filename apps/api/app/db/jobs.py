@@ -40,19 +40,19 @@ def list_jobs_from_database(
         conditions.append("status <> 'closed'")
 
     if keyword:
-        params["keyword_pattern"] = f"%{keyword}%"
+        params["keyword_pattern"] = f"%{_escape_like_pattern(keyword)}%"
         conditions.append(
             """
             (
-              title ILIKE %(keyword_pattern)s
-              OR company ILIKE %(keyword_pattern)s
-              OR location ILIKE %(keyword_pattern)s
-              OR employment_type ILIKE %(keyword_pattern)s
-              OR summary ILIKE %(keyword_pattern)s
+              title ILIKE %(keyword_pattern)s ESCAPE '\\'
+              OR company ILIKE %(keyword_pattern)s ESCAPE '\\'
+              OR location ILIKE %(keyword_pattern)s ESCAPE '\\'
+              OR employment_type ILIKE %(keyword_pattern)s ESCAPE '\\'
+              OR summary ILIKE %(keyword_pattern)s ESCAPE '\\'
               OR EXISTS (
                 SELECT 1
                 FROM unnest(job_keywords || eligibility_tags) AS terms(term)
-                WHERE terms.term ILIKE %(keyword_pattern)s
+                WHERE terms.term ILIKE %(keyword_pattern)s ESCAPE '\\'
               )
             )
             """
@@ -84,6 +84,10 @@ def get_job_from_database(job_id: str) -> dict[str, Any] | None:
         row = connection.execute(sql, {"job_id": job_id}).fetchone()
 
     return _serialize_job(row) if row else None
+
+
+def _escape_like_pattern(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
 
 
 def _serialize_job(row: dict[str, Any]) -> dict[str, Any]:

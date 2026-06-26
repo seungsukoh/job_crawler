@@ -79,6 +79,26 @@
 - Next.js runtime/build/typecheck 검증은 사용자 요청에 따라 의존성 설치가 필요한 단계라 이번 작업에서는 실행하지 않음
   - 후속 조치: `apps/web`에서 `npm.cmd install`, `npm.cmd run typecheck`, `npm.cmd run build` 실행
 
+## 2026-06-26 진행 내역
+
+- `apps/web`에 공고 목록/상세 탐색 UI `JobExplorer` 추가
+- `GET /jobs` 계약에 맞춘 Web API client `apps/web/src/lib/jobs.ts` 추가
+- 키워드, 마감일 범위, 마감 포함 필터를 UI에서 호출하도록 연결
+- 선택한 공고 상세, 원문 링크, 상태/마감일/출처/수집 시각 표시 추가
+- 관심 공고를 `localStorage`에 저장/해제하는 최소 UI 추가
+- 필터 초기화가 기본 조건으로 목록을 즉시 다시 조회하도록 보정
+- DB-backed keyword 검색에서 `%`, `_`, `\`를 SQL wildcard가 아닌 literal 문자로 처리하도록 보강
+- CSS `align-items: start`를 `flex-start`로 바꿔 Next.js build 경고 제거
+
+## 2026-06-26 검증
+
+- `apps/web`에서 `npm.cmd run typecheck` 통과
+- `apps/web`에서 `npm.cmd run build` 통과
+- `apps/api` Python 파일 20개 AST 파싱 통과
+- DB keyword escape helper 직접 확인 통과
+- `git diff --check` 통과
+- `python -m compileall app tests -q`는 `__pycache__` 쓰기 권한 문제로 실패해 AST 파싱으로 대체
+
 ## 보류한 검증 항목
 
 승인, 네트워크, 의존성 설치가 필요한 작업은 현재 순서를 꼬이게 만들 수 있어 보류한다. 아래 항목은 실행 가능한 환경이 준비되면 별도 검증 작업으로 처리한다.
@@ -89,9 +109,6 @@
 | API | `python -m pytest` | FastAPI/pytest 의존성 미설치 | API 의존성 설치 완료 |
 | API | `python -m app.db.migrate` | psycopg 의존성 및 Docker/PostgreSQL 실행 필요 | API 의존성 설치와 로컬 DB 실행 완료 |
 | API | `python -m app.db.seed --clear-sample` | psycopg 의존성 및 DB migration 필요 | migration 실행 완료 |
-| Web | `npm.cmd install` | 의존성 설치 필요 | 사용자가 승인하거나 네트워크 사용 가능 |
-| Web | `npm.cmd run typecheck` | Node 의존성 미설치 | Web 의존성 설치 완료 |
-| Web | `npm.cmd run build` | Node 의존성 미설치 | Web 의존성 설치 완료 |
 | Infra | `docker compose -f infra/docker-compose.yml config` | Docker CLI 미설치 | Docker Desktop 또는 Docker CLI 설치 |
 
 ## Git 반영 상태
@@ -106,6 +123,8 @@
 | `1c84e59` | 보류한 검증 항목 문서화 |
 | `025ea5c` | 로컬 PostgreSQL Docker Compose 설정 추가 |
 | `da58dcd` | 샘플 공고 API 계약 추가 |
+| `f1f2db5` | push된 프로젝트 상태 커밋 기록 |
+| `764e434` | PostgreSQL jobs seed pipeline 추가 |
 
 ## 현재 리스크
 
@@ -115,15 +134,13 @@
 - Supabase/Render/GitHub Actions 무료 한도 내에서 크롤러 실행 시간을 관리해야 한다.
 - 민간 대형 채용 플랫폼은 무단 크롤링하지 않는 전제로 대체 소스 확보가 필요하다.
 - 현재 로컬 환경에서 Python 의존성 설치가 네트워크 DNS 문제로 막혀 FastAPI runtime 테스트는 미실행 상태다.
-- Next.js 의존성 설치와 build/typecheck는 아직 실행하지 않았다.
 
 ## 다음 작업
 
 1. DB migration/seed/runtime API 검증
-2. 공고 목록/상세 UI 구현
-3. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
-4. GitHub Actions CI 또는 최소 검증 자동화 추가
-5. 관심 공고 localStorage 저장 UI 구현
+2. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+3. GitHub Actions CI 또는 최소 검증 자동화 추가
+4. DB-backed jobs API query 성능과 검색 semantics 보강
 
 ## 진행 기록 규칙
 

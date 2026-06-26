@@ -26,7 +26,8 @@
 - `TEAM_SYNC.md`로 병렬 작업용 공유 기준 파일 정리 완료
 - `apps/api` AST 문법 검사는 통과했으나, FastAPI/pytest 의존성 설치가 DNS 문제로 실패해 runtime 테스트는 미실행
 - `apps/web`에 Next.js + TypeScript 기본 앱과 API health 확인 화면 생성 완료
-- Next.js 의존성 설치와 build/typecheck는 사용자 요청에 따라 승인/네트워크가 필요한 단계라 미실행
+- `apps/web`에 공고 목록/상세 탐색 UI와 관심 공고 localStorage 저장 UI 추가 완료
+- Web `npm.cmd run typecheck`, `npm.cmd run build` 통과
 - `infra/docker-compose.yml`로 로컬 PostgreSQL Compose 설정 생성 완료
 - `.env.example`에 로컬 DB용 `POSTGRES_*` 값을 추가하고 `DATABASE_URL`과 기본값을 맞춤
 - `infra/README.md`에 로컬 DB 실행/중지/초기화 절차 기록 완료
@@ -37,18 +38,16 @@
 - `JOB_DATA_SOURCE=sample|database` 설정으로 공고 API 데이터 소스를 전환하는 구조 추가 완료
 - PostgreSQL `jobs` 테이블 SQL migration과 migration runner 추가 완료
 - 샘플 공고 DB seed runner `python -m app.db.seed --clear-sample` 추가 완료
+- DB-backed keyword 검색에서 SQL wildcard 문자를 literal로 처리하도록 escape 보강 완료
 
 ## 보류한 검증 항목
 
-아래 검증은 승인, 네트워크, 의존성 설치가 필요한 단계라 현재 작업 흐름에서는 보류했다.
+아래 검증은 승인, 네트워크, 의존성 설치, 로컬 도구가 필요한 단계라 현재 작업 흐름에서는 보류했다.
 
 - API 의존성 설치: `apps/api`에서 `.venv\Scripts\python -m pip install -e ".[dev]"`
 - API 테스트: `apps/api`에서 `python -m pytest`
 - API DB migration: `apps/api`에서 `python -m app.db.migrate`
 - API DB seed: `apps/api`에서 `python -m app.db.seed --clear-sample`
-- Web 의존성 설치: `apps/web`에서 `npm.cmd install`
-- Web 타입 검사: `apps/web`에서 `npm.cmd run typecheck`
-- Web 빌드: `apps/web`에서 `npm.cmd run build`
 - Infra Compose 설정 확인: 루트에서 `docker compose -f infra/docker-compose.yml config`
 
 API 의존성 설치는 승인 후에도 package index DNS resolution 실패로 완료하지 못했다. 우선순위가 꼬이지 않도록, 다음 개발 작업은 예정대로 진행하고 위 검증은 네트워크/승인/로컬 도구 조건이 맞을 때 별도 검증 작업으로 처리한다.
