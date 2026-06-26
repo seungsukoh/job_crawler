@@ -95,6 +95,7 @@
 - Cloudflare Linux 빌드에서 Rollup native optional package가 누락되지 않도록 `@rollup/rollup-linux-x64-gnu` optional dependency를 명시
 - 프론트엔드 API 환경 변수를 `NEXT_PUBLIC_API_BASE_URL`에서 `VITE_API_BASE_URL`로 변경
 - 로컬 Vite dev server 포트 `5173`을 FastAPI CORS 기본 허용 origin에 추가
+- API 미설정 또는 API 연결 실패 상태에서도 검색 화면이 비지 않도록 Web 내장 샘플 공고 fallback 추가
 
 ## 2026-06-26 검증
 
@@ -106,6 +107,7 @@
 - 저장소 루트에서 `npm.cmd run build` 통과
 - 저장소 루트 `dist/index.html` 생성 확인
 - 저장소 루트에서 `npm.cmd run typecheck` 통과
+- Web 내장 샘플 공고가 production bundle에 포함되는지 확인
 - Rollup Linux optional dependency lockfile 엔트리 포함 확인
 - `apps/api` Python 파일 20개 AST 파싱 통과
 - DB keyword escape helper 직접 확인 통과

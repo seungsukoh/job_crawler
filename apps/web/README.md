@@ -60,6 +60,8 @@ Environment variable: VITE_API_BASE_URL
 Node version: 20
 ```
 
+Production에서 `VITE_API_BASE_URL`이 비어 있으면 API 배포 전에도 검색 화면을 확인할 수 있도록 내장 샘플 공고를 사용한다.
+
 ## 로컬 실행
 
 PowerShell에서 `npm` 스크립트 실행이 막히면 `npm.cmd`를 사용한다.

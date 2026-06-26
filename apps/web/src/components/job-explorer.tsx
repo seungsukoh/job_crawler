@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { buildJobsUrl, type Job, type JobsResponse } from "@/lib/jobs";
+import { buildJobsUrl, listStaticJobs, type Job, type JobsResponse } from "@/lib/jobs";
 
 type JobExplorerProps = {
   apiBaseUrl: string;
+  useStaticJobData: boolean;
 };
 
 const savedJobsStorageKey = "job_crawler.saved_jobs.v1";
@@ -21,7 +22,7 @@ const employmentLabels: Record<string, string> = {
   part_time: "파트타임",
 };
 
-export function JobExplorer({ apiBaseUrl }: JobExplorerProps) {
+export function JobExplorer({ apiBaseUrl, useStaticJobData }: JobExplorerProps) {
   const [keyword, setKeyword] = useState("");
   const [deadlineFrom, setDeadlineFrom] = useState("");
   const [deadlineTo, setDeadlineTo] = useState("");
@@ -29,7 +30,9 @@ export function JobExplorer({ apiBaseUrl }: JobExplorerProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
   const [savedJobIds, setSavedJobIds] = useState<string[]>([]);
-  const [dataSource, setDataSource] = useState<string>("sample");
+  const [dataSource, setDataSource] = useState<string>(
+    useStaticJobData ? "sample-static" : "sample",
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -76,6 +79,11 @@ export function JobExplorer({ apiBaseUrl }: JobExplorerProps) {
     setErrorMessage(null);
 
     try {
+      if (useStaticJobData) {
+        applyJobsResponse(listStaticJobs(query));
+        return;
+      }
+
       const response = await fetch(
         buildJobsUrl(apiBaseUrl, {
           keyword: query.keyword,
@@ -95,21 +103,25 @@ export function JobExplorer({ apiBaseUrl }: JobExplorerProps) {
       }
 
       const payload = (await response.json()) as JobsResponse;
-      setJobs(payload.items);
-      setDataSource(payload.data_source);
-      setSelectedJobId((currentId) => {
-        if (currentId && payload.items.some((job) => job.id === currentId)) {
-          return currentId;
-        }
-        return payload.items[0]?.id ?? null;
-      });
+      applyJobsResponse(payload);
     } catch (error) {
-      setJobs([]);
-      setSelectedJobId(null);
-      setErrorMessage(error instanceof Error ? error.message : "Unknown error");
+      applyJobsResponse(listStaticJobs(query));
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setErrorMessage(`API unavailable; showing built-in sample data. (${message})`);
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function applyJobsResponse(payload: JobsResponse) {
+    setJobs(payload.items);
+    setDataSource(payload.data_source);
+    setSelectedJobId((currentId) => {
+      if (currentId && payload.items.some((job) => job.id === currentId)) {
+        return currentId;
+      }
+      return payload.items[0]?.id ?? null;
+    });
   }
 
   function resetFilters() {

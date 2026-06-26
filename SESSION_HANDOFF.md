@@ -28,6 +28,7 @@
 - `apps/web`은 React + Vite + TypeScript 앱으로 전환 완료
 - Cloudflare Pages 설정 기준은 build command `npm run build`, output `dist`, env `VITE_API_BASE_URL`
 - Cloudflare Pages가 저장소 루트에서 빌드해도 root build command `npm run build`가 루트 `dist/`를 생성하도록 지원
+- API 미설정 또는 API 연결 실패 상태에서는 Web 내장 샘플 공고 fallback으로 목록/검색을 표시
 - `apps/web` API health 확인 화면 생성 완료
 - `apps/web`에 공고 목록/상세 탐색 UI와 관심 공고 localStorage 저장 UI 추가 완료
 - Web `npm.cmd run typecheck`, `npm.cmd run build` 통과
