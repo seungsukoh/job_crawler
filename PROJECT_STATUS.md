@@ -92,6 +92,7 @@
 - `apps/web`을 Next.js에서 React + Vite + TypeScript로 전환
 - Cloudflare Pages 설정을 Vite 기준으로 정리: root `apps/web`, build command `npm run build`, output `dist`
 - 저장소 루트에서도 `npm run build`가 `apps/web` Vite build를 실행하도록 root workspace package 설정 추가
+- Cloudflare Linux 빌드에서 Rollup native optional package가 누락되지 않도록 `@rollup/rollup-linux-x64-gnu` optional dependency를 명시
 - 프론트엔드 API 환경 변수를 `NEXT_PUBLIC_API_BASE_URL`에서 `VITE_API_BASE_URL`로 변경
 - 로컬 Vite dev server 포트 `5173`을 FastAPI CORS 기본 허용 origin에 추가
 
@@ -104,6 +105,7 @@
 - `apps/web` Vite dev server `http://localhost:5173/` 실행 및 HTTP 200 확인
 - 저장소 루트에서 `npm.cmd run build` 통과
 - 저장소 루트에서 `npm.cmd run typecheck` 통과
+- Rollup Linux optional dependency lockfile 엔트리 포함 확인
 - `apps/api` Python 파일 20개 AST 파싱 통과
 - DB keyword escape helper 직접 확인 통과
 - `git diff --check` 통과
