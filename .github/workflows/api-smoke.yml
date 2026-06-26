@@ -1,0 +1,32 @@
+name: API smoke test
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_base_url:
+        description: "Deployed API base URL, for example https://service.onrender.com"
+        required: true
+        type: string
+      expected_min_jobs:
+        description: "Minimum expected jobs from GET /jobs"
+        required: true
+        type: number
+        default: 1
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check deployed API
+        run: python scripts/check-api-smoke.py --api-base-url "$API_BASE_URL" --expected-min-jobs "$EXPECTED_MIN_JOBS"
+        env:
+          API_BASE_URL: ${{ inputs.api_base_url }}
+          EXPECTED_MIN_JOBS: ${{ inputs.expected_min_jobs }}

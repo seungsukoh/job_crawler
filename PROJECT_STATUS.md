@@ -100,6 +100,7 @@
 - Render API 배포용 루트 `render.yaml` 추가
 - DB migration/seed 수동 실행용 GitHub Actions `Bootstrap database` workflow 추가
 - 15분 주기 및 수동 실행용 GitHub Actions `Collect jobs` workflow 추가
+- 배포된 API `/health`, `/jobs` 확인용 GitHub Actions `API smoke test` workflow 추가
 - Crawler 독립 CLI 추가: `CRAWLER_SOURCES_JSON` allowlist 기반 Greenhouse/Lever 공개 채용 API 수집 및 DB upsert
 - API seed와 crawler가 공유하는 `app.db.upsert.upsert_jobs` 추가
 
@@ -117,6 +118,7 @@
 - Rollup Linux optional dependency lockfile 엔트리 포함 확인
 - `apps/api` Python 파일 20개 AST 파싱 통과
 - 변경된 API/Crawler Python 파일 AST 파싱 통과
+- `scripts/check-api-smoke.py` AST 파싱 통과
 - `crawler/sources.example.json` JSON 파싱 통과
 - DB keyword escape helper 직접 확인 통과
 - `git diff --check` 통과

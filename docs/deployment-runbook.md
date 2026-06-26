@@ -76,6 +76,14 @@ https://<render-service>.onrender.com/health
 https://<render-service>.onrender.com/jobs
 ```
 
+You can also run:
+
+```text
+Actions -> API smoke test -> Run workflow
+api_base_url=https://<render-service>.onrender.com
+expected_min_jobs=1
+```
+
 ## 4. Connect Cloudflare Pages
 
 Set Cloudflare Pages environment variable:
@@ -145,6 +153,7 @@ Manual run is also available from the same workflow.
 1. `Bootstrap database` succeeds.
 2. Render `/health` returns `status: ok`.
 3. Render `/jobs` returns database-backed items.
-4. Cloudflare Pages displays items from the API.
-5. `Collect jobs` logs `Upserted N jobs`.
-6. A searched job appears through `/jobs?keyword=<term>`.
+4. `API smoke test` succeeds.
+5. Cloudflare Pages displays items from the API.
+6. `Collect jobs` logs `Upserted N jobs`.
+7. A searched job appears through `/jobs?keyword=<term>`.

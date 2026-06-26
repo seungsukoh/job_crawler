@@ -50,6 +50,7 @@
 - Render API 배포용 `render.yaml` 추가 완료
 - DB migration/seed 수동 실행용 GitHub Actions `Bootstrap database` workflow 추가 완료
 - 15분 주기 및 수동 실행용 GitHub Actions `Collect jobs` workflow 추가 완료
+- 배포된 API 확인용 GitHub Actions `API smoke test` workflow 추가 완료
 - `CRAWLER_SOURCES_JSON` allowlist 기반 Greenhouse/Lever 공개 채용 API 수집 CLI 추가 완료
 
 ## 보류한 검증 항목
