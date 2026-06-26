@@ -42,7 +42,7 @@
 좋은 작업 단위:
 
 - FastAPI 기본 앱 추가
-- Next.js 기본 앱 추가
+- React Vite 기본 앱 추가
 - 공고 목록 API 추가
 - 공고 목록 UI 추가
 - Source Registry 모델 추가

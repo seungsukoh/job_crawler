@@ -32,7 +32,7 @@ MVP에서 제외:
 
 ```text
 apps/
-  web/        Next.js + TypeScript, Cloudflare Pages 배포 후보
+  web/        React + Vite + TypeScript, Cloudflare Pages 배포 후보
   api/        FastAPI, Render Free 배포 후보
 crawler/      GitHub Actions에서 실행하는 독립 CLI
 infra/        Docker Compose, 배포 참고 파일
@@ -43,7 +43,7 @@ docs/         정책, 전략, 운영 문서
 
 ## 기술 방향
 
-- Frontend: Next.js + TypeScript
+- Frontend: React + Vite + TypeScript
 - Frontend 운영: Cloudflare Pages
 - Frontend 방식: 정적 페이지와 클라이언트 API 호출 중심
 - Backend: Python FastAPI
@@ -117,7 +117,7 @@ DB 모델은 수집 감사가 가능해야 한다.
 무료 운영으로 시작하지만 특정 서비스에 강하게 묶이지 않도록 설계한다.
 
 - `apps/web`, `apps/api`, `crawler`를 분리해 프론트엔드, API, 수집기를 독립적으로 이전할 수 있게 한다.
-- 프론트엔드는 `NEXT_PUBLIC_API_BASE_URL` 환경 변수로 API 주소만 바꾸면 되게 한다.
+- 프론트엔드는 `VITE_API_BASE_URL` 환경 변수로 API 주소만 바꾸면 되게 한다.
 - 백엔드는 FastAPI 표준 ASGI 앱으로 유지해 Render Free에서 유료 Render, Fly.io, Railway, VPS, 컨테이너 환경으로 옮길 수 있게 한다.
 - DB는 Supabase 전용 기능보다 표준 PostgreSQL과 Alembic migration을 우선해 Neon, RDS, Cloud SQL 같은 다른 PostgreSQL로 이전 가능하게 한다.
 - 크롤러는 API 서버 내부 작업이 아니라 독립 CLI로 유지해 GitHub Actions에서 시작하되, 나중에 별도 worker, VPS, managed job runner로 옮길 수 있게 한다.
@@ -131,7 +131,7 @@ DB 모델은 수집 감사가 가능해야 한다.
 
 1. 모노리포 기본 구조 생성
 2. FastAPI `/health` 앱 추가
-3. Next.js 기본 앱 추가
+3. React Vite 기본 앱 추가
 4. 로컬 PostgreSQL Docker Compose 추가
 5. DB migration과 샘플 공고 seed 추가
 6. 공고 목록/상세 API 구현

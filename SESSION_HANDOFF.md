@@ -25,11 +25,16 @@
 - PM 운영 체크리스트, 유지보수 원칙, 요구사항, 검증 기준 문서 생성 완료
 - `TEAM_SYNC.md`로 병렬 작업용 공유 기준 파일 정리 완료
 - `apps/api` AST 문법 검사는 통과했으나, FastAPI/pytest 의존성 설치가 DNS 문제로 실패해 runtime 테스트는 미실행
-- `apps/web`에 Next.js + TypeScript 기본 앱과 API health 확인 화면 생성 완료
+- `apps/web`은 React + Vite + TypeScript 앱으로 전환 완료
+- Cloudflare Pages 설정 기준은 root `apps/web`, build command `npm run build`, output `dist`, env `VITE_API_BASE_URL`
+- `apps/web` API health 확인 화면 생성 완료
 - `apps/web`에 공고 목록/상세 탐색 UI와 관심 공고 localStorage 저장 UI 추가 완료
 - Web `npm.cmd run typecheck`, `npm.cmd run build` 통과
+- Web Vite dev server `http://localhost:5173/` HTTP 200 확인
 - `infra/docker-compose.yml`로 로컬 PostgreSQL Compose 설정 생성 완료
 - `.env.example`에 로컬 DB용 `POSTGRES_*` 값을 추가하고 `DATABASE_URL`과 기본값을 맞춤
+- `.env.example`의 frontend API 환경 변수는 `VITE_API_BASE_URL`
+- FastAPI 기본 CORS origin에 Vite dev server `http://localhost:5173` 포함
 - `infra/README.md`에 로컬 DB 실행/중지/초기화 절차 기록 완료
 - `apps/api/app/sample_data/sample_jobs.json`에 synthetic 샘플 공고 10개 추가 완료
 - `GET /jobs`, `GET /jobs/{id}`를 샘플 데이터 기반으로 구현 완료

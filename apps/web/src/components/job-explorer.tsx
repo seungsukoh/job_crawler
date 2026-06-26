@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useMemo, useState } from "react";
 
 import { buildJobsUrl, type Job, type JobsResponse } from "@/lib/jobs";

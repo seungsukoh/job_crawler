@@ -6,7 +6,7 @@
 
 ## 현재 방향
 
-- Frontend: Next.js + TypeScript
+- Frontend: React + Vite + TypeScript
 - Backend: FastAPI
 - Database: PostgreSQL
 - Crawler: Python CLI
@@ -19,7 +19,7 @@
 
 ```text
 apps/
-  web/        Next.js frontend
+  web/        React Vite frontend
   api/        FastAPI backend
 crawler/      scheduled/manual collection CLI
 infra/        local and deployment support files
@@ -37,7 +37,7 @@ docs/         planning, policy, operation documents
 
 ## 로컬 실행
 
-FastAPI 기본 앱은 `apps/api`에, Next.js 기본 앱은 `apps/web`에 생성했다. 추가 실행 방법은 각 README에서 관리한다.
+FastAPI 앱은 `apps/api`에, React Vite 앱은 `apps/web`에 생성했다. 추가 실행 방법은 각 README에서 관리한다.
 
 - `apps/api/README.md`
 - `apps/web/README.md`

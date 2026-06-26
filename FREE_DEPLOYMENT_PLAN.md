@@ -9,7 +9,7 @@
 ```text
 사용자
   -> Cloudflare Pages
-      -> Next.js 프론트엔드
+      -> React Vite 프론트엔드
   -> 무료 API 호스팅
       -> FastAPI 백엔드
       -> 크롤러 수동 실행 또는 예약 실행
@@ -88,7 +88,7 @@ GitHub Actions 무료 사용 시 주의:
 ## MVP 무료 배포 순서
 
 1. GitHub 저장소에 모노리포 구조 생성
-2. Next.js 앱 생성
+2. React Vite 앱 생성
 3. Cloudflare Pages에 GitHub 저장소 연결
 4. Supabase 프로젝트 생성
 5. FastAPI 앱 생성
@@ -103,7 +103,7 @@ GitHub Actions 무료 사용 시 주의:
 프론트엔드:
 
 ```text
-NEXT_PUBLIC_API_BASE_URL=https://<api-host>
+VITE_API_BASE_URL=https://<api-host>
 ```
 
 백엔드:
@@ -153,4 +153,3 @@ CRAWLER_USER_AGENT
 ## 결론
 
 무료로 시작하는 것은 가능하다. 단, 무료 단계의 목표는 완벽한 자동화가 아니라 제품 가설 검증이다. 초기에는 Cloudflare Pages, Render Free, Supabase Free, GitHub Actions 조합으로 시작하고, 공고 수집은 공공 API/RSS 중심으로 작게 운영한다.
-

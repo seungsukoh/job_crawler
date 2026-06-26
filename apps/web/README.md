@@ -1,6 +1,6 @@
 # Web App
 
-Next.js + TypeScript 프론트엔드다.
+React + Vite + TypeScript 프론트엔드다.
 
 ## 역할
 
@@ -13,30 +13,32 @@ Next.js + TypeScript 프론트엔드다.
 ## 운영 방향
 
 - Cloudflare Pages 배포를 우선 고려한다.
-- API 주소는 `NEXT_PUBLIC_API_BASE_URL` 환경 변수로 주입한다.
+- API 주소는 `VITE_API_BASE_URL` 환경 변수로 주입한다.
 - MVP에서는 서버 기능 의존을 줄이고 클라이언트 API 호출 중심으로 시작한다.
 
 ## 다음 작업
 
-다음 프론트엔드 작업은 공고 목록/상세 UI가 아니라 API contract 확정 후 공고 탐색 화면을 붙이는 것이다.
+다음 프론트엔드 작업은 실제 API/DB runtime 검증 후 Cloudflare Pages 환경 변수와 API CORS 설정을 맞추는 것이다.
 
 ## 구조
 
 ```text
 src/
-  app/
-    layout.tsx
-    page.tsx
-    globals.css
+  App.tsx
+  main.tsx
   components/
     api-health-panel.tsx
+    job-explorer.tsx
   lib/
     config.ts
+    jobs.ts
+  styles/
+    globals.css
 ```
 
 ## 환경 변수
 
-API 주소는 `NEXT_PUBLIC_API_BASE_URL`로 설정한다.
+API 주소는 `VITE_API_BASE_URL`로 설정한다.
 
 기본값:
 
@@ -45,6 +47,18 @@ http://localhost:8000
 ```
 
 루트 `.env.example`에도 같은 변수가 있다.
+
+## Cloudflare Pages
+
+Cloudflare Pages 설정:
+
+```text
+Framework preset: Vite
+Root directory: apps/web
+Build command: npm run build
+Build output directory: dist
+Environment variable: VITE_API_BASE_URL
+```
 
 ## 로컬 실행
 
@@ -59,7 +73,7 @@ npm.cmd run dev
 확인:
 
 ```text
-http://localhost:3000
+http://localhost:5173
 ```
 
 타입 검사:
@@ -78,5 +92,5 @@ npm.cmd run build
 
 ## 검증 기준
 
-- `SR-002`: API base URL은 `NEXT_PUBLIC_API_BASE_URL` 환경 변수로 설정된다.
+- `SR-002`: API base URL은 `VITE_API_BASE_URL` 환경 변수로 설정된다.
 - `NFR-002`: `apps/web`은 API와 독립적으로 실행/배포된다.

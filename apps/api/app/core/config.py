@@ -21,7 +21,9 @@ def load_settings() -> Settings:
         app_name=os.getenv("APP_NAME", "job-crawler-api"),
         app_version=os.getenv("APP_VERSION", "0.1.0"),
         environment=os.getenv("APP_ENV", "local"),
-        allowed_origins=_split_csv(os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")),
+        allowed_origins=_split_csv(
+            os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000")
+        ),
         database_url=os.getenv(
             "DATABASE_URL",
             "postgresql+psycopg://job_crawler:job_crawler@localhost:5432/job_crawler",

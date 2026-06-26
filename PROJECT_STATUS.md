@@ -89,11 +89,18 @@
 - 필터 초기화가 기본 조건으로 목록을 즉시 다시 조회하도록 보정
 - DB-backed keyword 검색에서 `%`, `_`, `\`를 SQL wildcard가 아닌 literal 문자로 처리하도록 보강
 - CSS `align-items: start`를 `flex-start`로 바꿔 Next.js build 경고 제거
+- `apps/web`을 Next.js에서 React + Vite + TypeScript로 전환
+- Cloudflare Pages 설정을 Vite 기준으로 정리: root `apps/web`, build command `npm run build`, output `dist`
+- 프론트엔드 API 환경 변수를 `NEXT_PUBLIC_API_BASE_URL`에서 `VITE_API_BASE_URL`로 변경
+- 로컬 Vite dev server 포트 `5173`을 FastAPI CORS 기본 허용 origin에 추가
 
 ## 2026-06-26 검증
 
 - `apps/web`에서 `npm.cmd run typecheck` 통과
 - `apps/web`에서 `npm.cmd run build` 통과
+- `apps/web`에서 `npm.cmd install --registry=https://registry.npmjs.org/`로 Vite 의존성 설치 및 lockfile 갱신
+- `apps/web` Vite production build가 `dist/` 산출물 생성 확인
+- `apps/web` Vite dev server `http://localhost:5173/` 실행 및 HTTP 200 확인
 - `apps/api` Python 파일 20개 AST 파싱 통과
 - DB keyword escape helper 직접 확인 통과
 - `git diff --check` 통과
@@ -125,6 +132,7 @@
 | `da58dcd` | 샘플 공고 API 계약 추가 |
 | `f1f2db5` | push된 프로젝트 상태 커밋 기록 |
 | `764e434` | PostgreSQL jobs seed pipeline 추가 |
+| `463e648` | 공고 탐색 UI 추가 |
 
 ## 현재 리스크
 
@@ -134,13 +142,15 @@
 - Supabase/Render/GitHub Actions 무료 한도 내에서 크롤러 실행 시간을 관리해야 한다.
 - 민간 대형 채용 플랫폼은 무단 크롤링하지 않는 전제로 대체 소스 확보가 필요하다.
 - 현재 로컬 환경에서 Python 의존성 설치가 네트워크 DNS 문제로 막혀 FastAPI runtime 테스트는 미실행 상태다.
+- Cloudflare Pages 배포 후 실제 Pages 도메인을 API `ALLOWED_ORIGINS`에 추가해야 한다.
 
 ## 다음 작업
 
 1. DB migration/seed/runtime API 검증
 2. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
 3. GitHub Actions CI 또는 최소 검증 자동화 추가
-4. DB-backed jobs API query 성능과 검색 semantics 보강
+4. Cloudflare Pages 프로젝트 연결과 API CORS 설정 확인
+5. DB-backed jobs API query 성능과 검색 semantics 보강
 
 ## 진행 기록 규칙
 

@@ -67,7 +67,7 @@
 | 항목 | 상태 | 확인 방법 |
 |---|---|---|
 | SR-001 | 구현, runtime 검증 대기 | `apps/api/tests/test_health.py`, `GET /health` |
-| SR-002 | 구현, 정적 검증 통과, runtime 검증 대기 | `apps/web/src/lib/config.ts`, `NEXT_PUBLIC_API_BASE_URL` |
+| SR-002 | 구현, 정적 검증 통과, runtime 검증 대기 | `apps/web/src/lib/config.ts`, `VITE_API_BASE_URL` |
 | FR-001 | API 구현, runtime 검증 대기 | `GET /jobs`, `apps/api/tests/test_jobs.py` |
 | FR-002 | API 구현, runtime 검증 대기 | `apps/api/app/sample_data/sample_jobs.json`, `GET /jobs` |
 | FR-003 | API 구현, runtime 검증 대기 | `GET /jobs?keyword=python` |

@@ -2,7 +2,7 @@ import { ApiHealthPanel } from "@/components/api-health-panel";
 import { JobExplorer } from "@/components/job-explorer";
 import { getApiBaseUrl } from "@/lib/config";
 
-export default function HomePage() {
+export function App() {
   const apiBaseUrl = getApiBaseUrl();
 
   return (

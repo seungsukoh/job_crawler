@@ -13,7 +13,7 @@
 
 - 무료 운영 우선
 - 구조: `apps/web`, `apps/api`, `crawler`, `infra`, `docs` 기반 모노리포
-- Frontend: Next.js + TypeScript, Cloudflare Pages 후보
+- Frontend: React + Vite + TypeScript, Cloudflare Pages 후보
 - Backend: Python FastAPI, Render Free 후보
 - DB: PostgreSQL, Supabase Free 후보
 - Local DB: `infra/docker-compose.yml`로 PostgreSQL 실행
@@ -45,10 +45,9 @@
 ## 다음 작업
 
 1. DB migration/seed/runtime API 검증
-2. 공고 목록/상세 UI 구현
-3. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
-4. GitHub Actions CI 또는 최소 검증 자동화 추가
-5. 관심 공고 localStorage 저장 UI 구현
+2. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
+3. GitHub Actions CI 또는 최소 검증 자동화 추가
+4. Cloudflare Pages 배포 연결과 API CORS 설정 확인
 
 ## 작업 원칙
 
