@@ -96,6 +96,12 @@
 - 프론트엔드 API 환경 변수를 `NEXT_PUBLIC_API_BASE_URL`에서 `VITE_API_BASE_URL`로 변경
 - 로컬 Vite dev server 포트 `5173`을 FastAPI CORS 기본 허용 origin에 추가
 - API 미설정 또는 API 연결 실패 상태에서도 검색 화면이 비지 않도록 Web 내장 샘플 공고 fallback 추가
+- Supabase/Render/Cloudflare/GitHub Actions 연결 절차를 `docs/deployment-runbook.md`에 정리
+- Render API 배포용 루트 `render.yaml` 추가
+- DB migration/seed 수동 실행용 GitHub Actions `Bootstrap database` workflow 추가
+- 15분 주기 및 수동 실행용 GitHub Actions `Collect jobs` workflow 추가
+- Crawler 독립 CLI 추가: `CRAWLER_SOURCES_JSON` allowlist 기반 Greenhouse/Lever 공개 채용 API 수집 및 DB upsert
+- API seed와 crawler가 공유하는 `app.db.upsert.upsert_jobs` 추가
 
 ## 2026-06-26 검증
 
@@ -110,6 +116,8 @@
 - Web 내장 샘플 공고가 production bundle에 포함되는지 확인
 - Rollup Linux optional dependency lockfile 엔트리 포함 확인
 - `apps/api` Python 파일 20개 AST 파싱 통과
+- 변경된 API/Crawler Python 파일 AST 파싱 통과
+- `crawler/sources.example.json` JSON 파싱 통과
 - DB keyword escape helper 직접 확인 통과
 - `git diff --check` 통과
 - `python -m compileall app tests -q`는 `__pycache__` 쓰기 권한 문제로 실패해 AST 파싱으로 대체
@@ -124,6 +132,8 @@
 | API | `python -m pytest` | FastAPI/pytest 의존성 미설치 | API 의존성 설치 완료 |
 | API | `python -m app.db.migrate` | psycopg 의존성 및 Docker/PostgreSQL 실행 필요 | API 의존성 설치와 로컬 DB 실행 완료 |
 | API | `python -m app.db.seed --clear-sample` | psycopg 의존성 및 DB migration 필요 | migration 실행 완료 |
+| API/Crawler | `.venv\Scripts\python -m pip install -e apps/api -e crawler` | package index DNS resolution 실패 | 네트워크/DNS 정상화 |
+| Crawler | `python -m crawler.run --sources-file crawler/sources.example.json --dry-run` | httpx 의존성 미설치 | Crawler 의존성 설치 완료 |
 | Infra | `docker compose -f infra/docker-compose.yml config` | Docker CLI 미설치 | Docker Desktop 또는 Docker CLI 설치 |
 
 ## Git 반영 상태
@@ -154,11 +164,11 @@
 
 ## 다음 작업
 
-1. DB migration/seed/runtime API 검증
-2. 안전한 첫 수집 소스 후보 조사 및 Source Registry 초안 작성
-3. GitHub Actions CI 또는 최소 검증 자동화 추가
-4. Cloudflare Pages 프로젝트 연결과 API CORS 설정 확인
-5. DB-backed jobs API query 성능과 검색 semantics 보강
+1. Supabase 프로젝트 생성 후 GitHub secret `DATABASE_URL` 등록
+2. GitHub Actions `Bootstrap database` 수동 실행으로 migration/seed 적용
+3. Render에서 `render.yaml` blueprint로 API 배포
+4. Cloudflare Pages `VITE_API_BASE_URL`을 Render API URL로 설정
+5. 첫 Greenhouse/Lever 소스 후보를 정책 검토 후 `CRAWLER_SOURCES_JSON`에 등록하고 `Collect jobs` 수동 실행
 
 ## 진행 기록 규칙
 

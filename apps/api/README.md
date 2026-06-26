@@ -23,6 +23,7 @@ FastAPI 백엔드가 들어갈 위치다.
 - PostgreSQL은 `DATABASE_URL` 환경 변수로 연결한다.
 - DB 변경은 `app/db/migrations`의 SQL migration 파일과 `python -m app.db.migrate`로 관리한다.
 - 수집 작업은 API 서버 내부 작업으로 넣지 않고 `crawler/`의 독립 CLI로 분리한다.
+- Render 배포는 저장소 루트 `render.yaml`을 기준으로 한다.
 
 ## 공고 샘플 API
 

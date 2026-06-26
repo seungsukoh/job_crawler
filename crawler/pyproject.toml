@@ -1,0 +1,18 @@
+[project]
+name = "job-crawler-collector"
+version = "0.1.0"
+description = "Scheduled job collection CLI for the job_crawler project"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27.0,<1.0.0",
+]
+
+[project.scripts]
+job-crawler-collect = "crawler.run:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.setuptools.packages.find]
+include = ["crawler*"]

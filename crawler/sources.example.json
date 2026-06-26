@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "type": "greenhouse",
+      "name": "Example Greenhouse Company",
+      "status": "paused",
+      "board_token": "replace-with-board-token",
+      "keywords": ["intern", "entry_level"],
+      "eligibility_tags": ["student"]
+    },
+    {
+      "type": "lever",
+      "name": "Example Lever Company",
+      "status": "paused",
+      "company": "replace-with-company-slug",
+      "keywords": ["intern", "entry_level"],
+      "eligibility_tags": ["student"]
+    }
+  ]
+}

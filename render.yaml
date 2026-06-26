@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: job-crawler-api
+    runtime: python
+    plan: free
+    rootDir: apps/api
+    buildCommand: python -m pip install --upgrade pip && python -m pip install -e .
+    startCommand: python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: JOB_DATA_SOURCE
+        value: database
+      - key: ALLOWED_ORIGINS
+        value: https://apply-finder.pages.dev
+      - key: DATABASE_URL
+        sync: false

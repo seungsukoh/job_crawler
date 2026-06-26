@@ -46,6 +46,11 @@
 - PostgreSQL `jobs` 테이블 SQL migration과 migration runner 추가 완료
 - 샘플 공고 DB seed runner `python -m app.db.seed --clear-sample` 추가 완료
 - DB-backed keyword 검색에서 SQL wildcard 문자를 literal로 처리하도록 escape 보강 완료
+- Supabase/Render/Cloudflare/GitHub Actions 연결 절차는 `docs/deployment-runbook.md`에 정리 완료
+- Render API 배포용 `render.yaml` 추가 완료
+- DB migration/seed 수동 실행용 GitHub Actions `Bootstrap database` workflow 추가 완료
+- 15분 주기 및 수동 실행용 GitHub Actions `Collect jobs` workflow 추가 완료
+- `CRAWLER_SOURCES_JSON` allowlist 기반 Greenhouse/Lever 공개 채용 API 수집 CLI 추가 완료
 
 ## 보류한 검증 항목
 
@@ -55,6 +60,8 @@
 - API 테스트: `apps/api`에서 `python -m pytest`
 - API DB migration: `apps/api`에서 `python -m app.db.migrate`
 - API DB seed: `apps/api`에서 `python -m app.db.seed --clear-sample`
+- API/Crawler 의존성 설치: 루트에서 `.venv\Scripts\python -m pip install -e apps/api -e crawler`
+- Crawler dry-run: 루트에서 `python -m crawler.run --sources-file crawler/sources.example.json --dry-run`
 - Infra Compose 설정 확인: 루트에서 `docker compose -f infra/docker-compose.yml config`
 
 API 의존성 설치는 승인 후에도 package index DNS resolution 실패로 완료하지 못했다. 우선순위가 꼬이지 않도록, 다음 개발 작업은 예정대로 진행하고 위 검증은 네트워크/승인/로컬 도구 조건이 맞을 때 별도 검증 작업으로 처리한다.
@@ -64,9 +71,9 @@ API 의존성 설치는 승인 후에도 package index DNS resolution 실패로 
 다음 개발 작업은 아래 순서로 시작한다.
 
 ```text
-이번 작업: DB migration/seed/runtime API 검증
-범위: Docker PostgreSQL 실행, API 의존성 설치, migration/seed 실행, JOB_DATA_SOURCE=database로 GET /jobs 확인
-제외: 실제 외부 수집, Source Registry 구현, 관심 공고 저장, 배포 자동화, 인증
+이번 작업: Supabase/Render/GitHub Actions 배포 연결
+범위: Supabase DATABASE_URL 등록, Bootstrap database workflow 실행, Render API 배포, Cloudflare VITE_API_BASE_URL 연결, 첫 CRAWLER_SOURCES_JSON 수동 실행
+제외: 무단 HTML 크롤링, 대형 채용 플랫폼 우회 수집, 인증, 관리자 UI
 ```
 
 ## 반드시 유지할 결정
