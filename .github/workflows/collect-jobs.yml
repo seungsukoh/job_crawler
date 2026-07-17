@@ -3,7 +3,7 @@ name: Collect jobs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "0 0 * * *"
 
 concurrency:
   group: collect-jobs
@@ -13,24 +13,51 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     env:
+      COLLECT_JOBS_ENABLED: ${{ vars.COLLECT_JOBS_ENABLED }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       CRAWLER_SOURCES_JSON: ${{ secrets.CRAWLER_SOURCES_JSON }}
       CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT || secrets.CRAWLER_USER_AGENT }}
       CRAWLER_DEFAULT_TIMEOUT_SECONDS: "20"
       CRAWLER_DEFAULT_RATE_LIMIT_SECONDS: "3"
     steps:
+      - name: Check collector configuration
+        id: config
+        run: |
+          should_run=true
+
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$COLLECT_JOBS_ENABLED" != "true" ]; then
+            echo "::notice::Scheduled collection is disabled. Set repository variable COLLECT_JOBS_ENABLED=true to enable it."
+            should_run=false
+          fi
+
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::warning::DATABASE_URL secret is not configured; skipping collection."
+            should_run=false
+          fi
+
+          if [ -z "$CRAWLER_SOURCES_JSON" ]; then
+            echo "::notice::CRAWLER_SOURCES_JSON secret is not configured; skipping collection."
+            should_run=false
+          fi
+
+          echo "should_run=$should_run" >> "$GITHUB_OUTPUT"
+
       - name: Check out repository
+        if: steps.config.outputs.should_run == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: steps.config.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install collector packages
+        if: steps.config.outputs.should_run == 'true'
         run: python -m pip install --upgrade pip && python -m pip install -e apps/api -e crawler
 
       - name: Verify required secrets
+        if: steps.config.outputs.should_run == 'true'
         run: |
           if [ -z "$DATABASE_URL" ]; then
             echo "DATABASE_URL secret is required."
@@ -41,7 +68,9 @@ jobs:
           fi
 
       - name: Run migrations
+        if: steps.config.outputs.should_run == 'true'
         run: python -m app.db.migrate
 
       - name: Collect and upsert jobs
+        if: steps.config.outputs.should_run == 'true'
         run: python -m crawler.run
